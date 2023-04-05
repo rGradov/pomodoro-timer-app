@@ -45,10 +45,10 @@ final router = GoRouter(routes: [
     },
     routes: [
       GoRoute(
-        path: "interval",
+        path: "interval/:name",
         pageBuilder: (ctx, state) {
           return CustomTransitionPage(
-              child: const IntervalScreen(),
+              child:  IntervalScreen(name: state.params["name"]!,),
               transitionsBuilder: (ctx, animation, secondaryAnimation, child) {
                 const begin = Offset(1.0, 0.0);
                 const end = Offset.zero;

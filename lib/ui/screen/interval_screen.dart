@@ -3,9 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../components/app_headers.dart';
+import '../components/buttons/toggle_button.dart';
 
 class IntervalScreen extends StatelessWidget {
-  const IntervalScreen({Key? key}) : super(key: key);
+  const IntervalScreen({Key? key, required this.name}) : super(key: key);
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -17,24 +19,58 @@ class IntervalScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const HeaderBackWrapper(
-                text: "Settings",
+              Stack(
+                fit: StackFit.loose,
+                alignment: Alignment.center,
+                children: [
+                  Positioned(
+                    bottom: 3,
+                    child: Text(name,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontSize: 24,
+                            fontFamily: "RobotoFlex",
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF471515))),
+                  ),
+                  const HeaderBackWrapper(
+                    text: "Settings",
+                  ),
+                ],
               ),
-              ListTile(
-                title: Text("10 min"),
-              ),
-              ListTile(
-                title: Text("25 min"),
-              ),
-              ListTile(
-                title: Text("55 min"),
-                leading: Icon(
-                  Icons.check,
-                  color: Color(0xFFFF4C4C).withOpacity(0.71),
+              const SizedBox(height: 20,),
+              const BlockItem(
+                child: ListTile(
+                  title: Text("10 min"),
                 ),
               ),
-              ListTile(
-                title: Text("90 min"),
+              const SizedBox(
+                height: 1,
+              ),
+              const BlockItem(
+                child: ListTile(
+                  title: Text("10 min"),
+                ),
+              ),
+              const SizedBox(
+                height: 1,
+              ),
+              const BlockItem(
+                child: ListTile(
+
+                  title: Text("10 min"),
+                ),
+              ),
+              const SizedBox(
+                height: 1,
+              ),
+              const BlockItem(
+                child: ListTile(
+                  title: Text("10 min"),
+                ),
+              ),
+              const SizedBox(
+                height: 1,
               ),
             ],
           ),

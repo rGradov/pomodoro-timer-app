@@ -53,14 +53,14 @@ class SettingList extends StatelessWidget {
             text: "time intervals",
             children: [
               SettingsBlockElement(
-                  callback: () => context.push("/settings/interval"),
+                  callback: () => context.push("/settings/interval/Focus"),
                   text: "Focus",
                   value: "10min"),
               const SizedBox(
                 height: 1,
               ),
               SettingsBlockElement(
-                  callback: () => context.push("/settings/interval"),
+                  callback: () => context.push("/settings/interval/Break"),
                   text: "Break",
                   value: "10min"),
             ],

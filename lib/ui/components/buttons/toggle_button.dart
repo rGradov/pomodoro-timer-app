@@ -86,3 +86,22 @@ class _ToggleBlockButtonState extends State<ToggleBlockButton> {
     );
   }
 }
+
+class BlockItem extends StatelessWidget {
+  const BlockItem({Key? key, required this.child}) : super(key: key);
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xFFFF4C4C).withOpacity(0.15),
+      constraints:
+          const BoxConstraints(minHeight: 40, minWidth: double.infinity),
+      child: FractionallySizedBox(
+        widthFactor: 0.9,
+        alignment: Alignment.center,
+        child: child,
+      ),
+    );
+  }
+}
