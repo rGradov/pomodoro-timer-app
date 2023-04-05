@@ -57,3 +57,32 @@ class _ToggleButtonState extends State<ToggleButton> {
         });
   }
 }
+
+class ToggleBlockButton extends StatefulWidget {
+  const ToggleBlockButton({Key? key, required this.text, this.value = false})
+      : super(key: key);
+  final String text;
+  final bool value;
+
+  @override
+  State<ToggleBlockButton> createState() => _ToggleBlockButtonState();
+}
+
+class _ToggleBlockButtonState extends State<ToggleBlockButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xFFFF4C4C).withOpacity(0.15),
+      constraints:
+          const BoxConstraints(minHeight: 40, minWidth: double.infinity),
+      child: FractionallySizedBox(
+        widthFactor: 0.9,
+        alignment: Alignment.center,
+        child: ToggleButton(
+          text: widget.text,
+          value: widget.value,
+        ),
+      ),
+    );
+  }
+}

@@ -26,24 +26,6 @@ final router = GoRouter(routes: [
     },
   ),
   GoRoute(
-    path: "/settings/interval",
-    pageBuilder: (ctx, state) {
-      return CustomTransitionPage(
-          child: const IntervalScreen(),
-          transitionsBuilder: (ctx, animation, secondaryAnimation, child) {
-            const begin = Offset(0.0, 1.0);
-            const end = Offset.zero;
-            var curve = Curves.ease;
-            var curveTween = CurveTween(curve: curve);
-            var tween = Tween(begin: begin, end: end).chain(curveTween);
-            return SlideTransition(
-              position: animation.drive(tween),
-              child: child,
-            );
-          });
-    },
-  ),
-  GoRoute(
     path: "/settings",
     pageBuilder: (ctx, state) {
       return CustomTransitionPage(
@@ -61,5 +43,25 @@ final router = GoRouter(routes: [
             );
           });
     },
+    routes: [
+      GoRoute(
+        path: "interval",
+        pageBuilder: (ctx, state) {
+          return CustomTransitionPage(
+              child: const IntervalScreen(),
+              transitionsBuilder: (ctx, animation, secondaryAnimation, child) {
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                var curve = Curves.ease;
+                var curveTween = CurveTween(curve: curve);
+                var tween = Tween(begin: begin, end: end).chain(curveTween);
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              });
+        },
+      ),
+    ],
   ),
 ]);

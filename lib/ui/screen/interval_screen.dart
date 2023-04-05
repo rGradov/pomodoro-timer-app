@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../components/app_headers.dart';
+
 class IntervalScreen extends StatelessWidget {
   const IntervalScreen({Key? key}) : super(key: key);
 
@@ -11,8 +13,13 @@ class IntervalScreen extends StatelessWidget {
         backgroundColor: const Color(0xFFFFF2F2),
         body: SafeArea(
           child: Column(
-            children:  [
-              _HeaderWrapper(),
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              const HeaderBackWrapper(
+                text: "Settings",
+              ),
               ListTile(
                 title: Text("10 min"),
               ),
@@ -21,7 +28,10 @@ class IntervalScreen extends StatelessWidget {
               ),
               ListTile(
                 title: Text("55 min"),
-                leading: Icon(Icons.check,color:  Color(0xFFFF4C4C).withOpacity(0.71),),
+                leading: Icon(
+                  Icons.check,
+                  color: Color(0xFFFF4C4C).withOpacity(0.71),
+                ),
               ),
               ListTile(
                 title: Text("90 min"),
