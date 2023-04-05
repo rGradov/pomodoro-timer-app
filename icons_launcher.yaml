@@ -1,0 +1,17 @@
+# flutter pub run icons_launcher:create
+
+icons_launcher:
+  image_path: "assets/app_icon/logo.png"
+  platforms:
+    android:
+      enable: true
+      image_path: "assets/app_icon/logo.png"
+      adaptive_background_image: "assets/app_icon/background.png"
+      adaptive_foreground_image: "assets/app_icon/foreground.png"
+      adaptive_round_image: "assets/app_icon/round.png"
+      adaptive_monochrome_image:  "assets/app_icon/mono.png"
+
+
+    ios:
+      enable: true
+      image_path: "assets/app_icon/logo.png"
