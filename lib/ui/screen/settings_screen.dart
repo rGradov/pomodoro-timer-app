@@ -30,10 +30,13 @@ class SettingList extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
+      children:  [
         SizedBox(height: 20),
         _HeaderWrapper(),
          SizedBox(height: 20),
+        GestureDetector(onTap: (){
+          context.push("/settings/interval");
+        },child:       const Text("interval"),),
         ToggleButton(
           text: "dark mode",
           value: false,
@@ -74,7 +77,11 @@ class _HeaderWrapper extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () => context.pop(),
-          child: SvgPicture.asset('assets/icons/exit.svg'),
+          child: Text("done",style:  TextStyle(
+              fontSize: 18,
+              fontFamily: "RobotoFlex",
+              fontWeight: FontWeight.bold,
+              color:  const Color(0xFFFF4C4C).withOpacity(0.71)),),
         ),
       ],
     );
