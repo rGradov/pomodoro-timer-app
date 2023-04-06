@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../../../vm/settings_vm.dart';
+
 class ToggleButton extends StatefulWidget {
-  const ToggleButton({Key? key, required this.text, this.value = false})
+  const ToggleButton(
+      {Key? key,
+      required this.text,
+      this.value = false,
+      required this.callback})
       : super(key: key);
   final String text;
   final bool value;
+  final ToggleCallback callback;
 
   @override
   State<ToggleButton> createState() => _ToggleButtonState();
@@ -48,7 +55,7 @@ class _ToggleButtonState extends State<ToggleButton> {
               ),
               Switch(
                 value: value,
-                onChanged: toggle,
+                onChanged: (v) => widget.callback(v),
                 activeColor: Theme.of(context).highlightColor,
               ),
             ],
@@ -58,10 +65,15 @@ class _ToggleButtonState extends State<ToggleButton> {
 }
 
 class ToggleBlockButton extends StatefulWidget {
-  const ToggleBlockButton({Key? key, required this.text, this.value = false})
+  const ToggleBlockButton(
+      {Key? key,
+      required this.text,
+      this.value = false,
+      required this.callback})
       : super(key: key);
   final String text;
   final bool value;
+  final ToggleCallback callback;
 
   @override
   State<ToggleBlockButton> createState() => _ToggleBlockButtonState();
@@ -78,6 +90,7 @@ class _ToggleBlockButtonState extends State<ToggleBlockButton> {
         widthFactor: 0.9,
         alignment: Alignment.center,
         child: ToggleButton(
+          callback: widget.callback,
           text: widget.text,
           value: widget.value,
         ),
