@@ -6,7 +6,7 @@ import 'package:pomodoro/vm/main_vm.dart';
 import 'package:pomodoro/vm/settings_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 void main() {
   runApp(
     MultiProvider(
@@ -31,11 +31,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final current = context.select((MainVm vm) => vm.current);
+    final theme = context.select((SettingsVm vm) =>vm.state);
     return MaterialApp.router(
+      key: navigatorKey,
       routerConfig: router,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: current?.theme ?? ThemeData(),
+      themeMode: theme.mode,
+      darkTheme: current?.darkTheme ?? ThemeData.dark(),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:pomodoro/utils/app_utils.dart';
 
 class SettingsModel implements Copyable<SettingsModel> {
@@ -8,6 +9,7 @@ class SettingsModel implements Copyable<SettingsModel> {
   final bool darkMode;
   final bool sound;
   final bool notification;
+  ThemeMode get mode => darkMode ? ThemeMode.dark : ThemeMode.light;
   factory SettingsModel.initial() {
     return const SettingsModel(
         darkMode: false, notification: true, sound: true);

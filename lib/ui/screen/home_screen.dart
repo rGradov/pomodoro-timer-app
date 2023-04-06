@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle.light.copyWith(
               statusBarColor: Colors.transparent,
@@ -104,7 +104,8 @@ class _ButtonsWrapper extends StatelessWidget {
           SmallButton(
               callback: () => context.push("/settings"),
               color: Theme.of(context).dividerColor,
-              child: SvgPicture.asset("assets/icons/three_dots.svg")),
+              child: SvgPicture.asset("assets/icons/three_dots.svg",
+                  color: Theme.of(context).indicatorColor)),
           PlayButton(
             callback: () {},
             color: Theme.of(context).highlightColor,
@@ -112,7 +113,10 @@ class _ButtonsWrapper extends StatelessWidget {
           SmallButton(
               callback: () => context.read<MainVm>().moveNext(),
               color: Theme.of(context).dividerColor,
-              child: SvgPicture.asset("assets/icons/forward.svg")),
+              child: SvgPicture.asset(
+                "assets/icons/forward.svg",
+                color: Theme.of(context).indicatorColor,
+              )),
         ],
       ),
     );

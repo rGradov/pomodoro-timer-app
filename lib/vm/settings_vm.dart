@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:pomodoro/models/settings_model.dart';
 import 'package:pomodoro/utils/statistic_delegate.dart';
 
+import '../main.dart';
 import '../utils/app_utils.dart';
 
 typedef ToggleCallback = Function(bool value);

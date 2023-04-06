@@ -53,8 +53,10 @@ class _SmallButtonState extends State<PlayButton> {
                 duration: const Duration(milliseconds: 400),
                 child: Center(
                   child: value
-                      ? SvgPicture.asset("assets/icons/pause.svg")
-                      :  SvgPicture.asset("assets/icons/play.svg"),
+                      ? SvgPicture.asset("assets/icons/pause.svg",
+                          color: Theme.of(context).indicatorColor)
+                      : SvgPicture.asset("assets/icons/play.svg",
+                          color: Theme.of(context).indicatorColor),
                 ),
               ),
             ),
