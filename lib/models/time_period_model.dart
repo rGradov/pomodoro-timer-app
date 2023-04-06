@@ -1,0 +1,106 @@
+import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
+
+class TimePeriod {
+  const TimePeriod({
+    required this.time,
+    required this.name,
+    required this.icon,
+    required this.size,
+  });
+  final Duration time;
+  final String name;
+  final String icon;
+  final Size size;
+  ThemeData get theme => ThemeData();
+}
+
+class FocusTimePeriod extends TimePeriod {
+  const FocusTimePeriod({required Duration time})
+      : super(
+            name: "Focus",
+            time: time,
+            icon: "assets/icons/brain.svg",
+            size: const Size(120, 50));
+  @override
+  ThemeData get theme => ThemeData(
+        primaryColor: const Color(0xFFFFF2F2),
+        cardColor: const Color(0xFFFFD9D9),
+        canvasColor: const Color(0xFF471515),
+        highlightColor: const Color(0xFFFF4C4C).withOpacity(0.71),
+        dividerColor: const Color(0xFFFFD9D9),
+        textTheme: TextTheme(
+          displayLarge: const TextStyle(
+              color: Color(0xFF471515),
+              fontFamily: "RobotoFlex",
+              fontSize: 212),
+          displayMedium: const TextStyle(
+              color: Color(0xFF471515), fontFamily: "RobotoFlex", fontSize: 24),
+          bodyMedium: TextStyle(
+            fontSize: 18,
+            fontFamily: "RobotoFlex",
+            fontWeight: FontWeight.bold,
+            color: const Color(0xFFFF4C4C).withOpacity(0.71),
+          ),
+        ),
+      );
+}
+
+class LongBreak extends TimePeriod {
+  const LongBreak({required Duration time})
+      : super(
+            name: "Long break",
+            time: time,
+            icon: "assets/icons/coffee.svg",
+            size: const Size(180, 50));
+  @override
+  ThemeData get theme => ThemeData(
+      primaryColor: const Color(0xFFF2F9FF),
+      cardColor: const Color(0xFFD9EEFF),
+      canvasColor: const Color(0xFF153047),
+      highlightColor: const Color(0xFF4CACFF).withOpacity(0.62),
+      dividerColor: const Color(0xFFD9EEFF),
+      textTheme:  TextTheme(
+        displayLarge:const TextStyle(
+            color: Color(0xFF153047), fontFamily: "RobotoFlex", fontSize: 212),
+        displayMedium: const TextStyle(
+            color: Color(0xFF153047), fontFamily: "RobotoFlex", fontSize: 24),
+        bodyMedium: TextStyle(
+          fontSize: 18,
+          fontFamily: "RobotoFlex",
+          fontWeight: FontWeight.bold,
+          color: const Color(0xFF4CACFF).withOpacity(0.62),
+        ),
+        labelMedium: const TextStyle(
+          fontSize: 18,
+          fontFamily: "RobotoFlex",
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF153047),
+        ),
+      ));
+}
+
+class ShortBreak extends TimePeriod {
+  const ShortBreak({required Duration time})
+      : super(
+            name: "Short break",
+            time: time,
+            icon: "assets/icons/coffee.svg",
+            size: const Size(180, 50));
+  @override
+  ThemeData get theme => ThemeData(
+      primaryColor: const Color(0xFFF2FFF5),
+      cardColor: const Color(0xFFDAFAE0),
+      canvasColor: const Color(0xFF14401D),
+      highlightColor: const Color(0xFF4DDA6E).withOpacity(0.62),
+      dividerColor: const Color(0xFFDAFAE0),
+      textTheme: const TextTheme(
+          displayLarge: TextStyle(
+              color: Color(0xFF14401D),
+              fontFamily: "RobotoFlex",
+              fontSize: 212),
+          displayMedium: TextStyle(
+              color: Color(0xFF14401D),
+              fontFamily: "RobotoFlex",
+              fontSize: 24)));
+}

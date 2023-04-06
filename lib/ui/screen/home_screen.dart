@@ -4,6 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pomodoro/ui/components/buttons/play_button.dart';
 import 'package:pomodoro/ui/components/buttons/small_button.dart';
+import 'package:pomodoro/vm/main_vm.dart';
+import 'package:provider/provider.dart';
+
+import '../../utils/app_utils.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -11,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFFFFF2F2),
+        backgroundColor: Theme.of(context).primaryColor,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle.light.copyWith(
               statusBarColor: Colors.transparent,
@@ -20,9 +24,10 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: const [
                   Header(),
-                 Expanded(
-                   flex: 2,
-                   child:  TimeWrapper(),),
+                  Expanded(
+                    flex: 2,
+                    child: TimeWrapper(),
+                  ),
                   Expanded(child: _ButtonsWrapper()),
                 ],
               ),
@@ -35,28 +40,34 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 130,
-      height: 50,
+    final current = context.select((MainVm vm) => vm.current);
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 100),
+      curve: Curves.easeIn,
+      width: current?.size.width,
+      height: current?.size.height,
       decoration: BoxDecoration(
-          color: const Color(0xFFFFF2F2),
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(24),
           border: Border.all(
             width: 2,
             color: const Color(0xFF471515),
           )),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          SvgPicture.asset("assets/icons/brain.svg"),
-          const Text(
-            "focus",
-            style: TextStyle(
-                color: Color(0xFF471515),
-                fontFamily: "RobotoFlex",
-                fontSize: 24),
-          )
-        ],
+      child: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset(current?.icon ?? ""),
+              Text(
+                current?.name ?? "",
+                style:  Theme.of(context).textTheme.displayMedium,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -67,12 +78,12 @@ class TimeWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      "25 00",
-      textAlign: TextAlign.center,
-      style: TextStyle(
+    final current = context.select((MainVm vm) => vm.current);
 
-          fontFamily: "RobotoFlex", fontSize: 212, color: Color(0xFF471515)),
+    return Text(
+      formatDuration(current?.time),
+      textAlign: TextAlign.center,
+      style: Theme.of(context).textTheme.displayLarge,
     );
   }
 }
@@ -90,15 +101,15 @@ class _ButtonsWrapper extends StatelessWidget {
         children: [
           SmallButton(
               callback: () => context.push("/settings"),
-              color: const Color(0xFFFF4C4C).withOpacity(0.15),
+              color: Theme.of(context).dividerColor,
               child: SvgPicture.asset("assets/icons/three_dots.svg")),
           PlayButton(
             callback: () {},
-            color: const Color(0xFFFF4C4C).withOpacity(0.71),
+            color: Theme.of(context).highlightColor,
           ),
           SmallButton(
-              callback: () {},
-              color: const Color(0xFFFF4C4C).withOpacity(0.15),
+              callback: () => context.read<MainVm>().moveNext(),
+              color: Theme.of(context).dividerColor,
               child: SvgPicture.asset("assets/icons/forward.svg")),
         ],
       ),

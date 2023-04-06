@@ -22,11 +22,7 @@ class HeaderWrapper extends StatelessWidget {
         children: [
           Text(
             text,
-            style: const TextStyle(
-                fontSize: 24,
-                fontFamily: "RobotoFlex",
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF471515)),
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           GestureDetector(
             onTap:callback,

@@ -11,7 +11,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF2F2),
+      backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
           child: SizedBox.expand(
         child: Column(
@@ -41,11 +41,7 @@ class SettingList extends StatelessWidget {
             callback: () => context.pop(),
             child: Text(
               "done",
-              style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: "RobotoFlex",
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFFFF4C4C).withOpacity(0.71)),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
           const SizedBox(height: 20),
@@ -65,9 +61,7 @@ class SettingList extends StatelessWidget {
                   value: "10min"),
             ],
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           const SettingsBlock(
             text: "general",
             children: [
