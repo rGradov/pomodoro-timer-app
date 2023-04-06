@@ -41,16 +41,16 @@ class _ToggleButtonState extends State<ToggleButton> {
             children: [
               Text(
                 widget.text,
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontFamily: "RobotoFlex",
-                    fontWeight: FontWeight.normal,
-                    color: Color(0xFF471515)),
+                style: TextStyle(
+                  color: Theme.of(context).canvasColor,
+                  fontSize: 16,
+                  fontFamily: "RobotoFlex",
+                ),
               ),
               Switch(
                 value: value,
                 onChanged: toggle,
-                activeColor: const Color(0xFFFF4C4C).withOpacity(0.71),
+                activeColor: Theme.of(context).highlightColor,
               ),
             ],
           );
@@ -72,7 +72,7 @@ class _ToggleBlockButtonState extends State<ToggleBlockButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFFFF4C4C).withOpacity(0.15),
+      color: Theme.of(context).dividerColor,
       constraints:
           const BoxConstraints(minHeight: 40, minWidth: double.infinity),
       child: FractionallySizedBox(
@@ -94,7 +94,7 @@ class BlockItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFFFF4C4C).withOpacity(0.15),
+      color: Theme.of(context).dividerColor,
       constraints:
           const BoxConstraints(minHeight: 40, minWidth: double.infinity),
       child: FractionallySizedBox(

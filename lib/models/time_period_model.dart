@@ -1,5 +1,6 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
+import 'package:pomodoro/models/sound_model.dart';
 
 class TimePeriod {
   const TimePeriod({
@@ -7,11 +8,13 @@ class TimePeriod {
     required this.name,
     required this.icon,
     required this.size,
+    required this.sounds,
   });
   final Duration time;
   final String name;
   final String icon;
   final Size size;
+  final SoundModel sounds;
   ThemeData get theme => ThemeData();
 }
 
@@ -20,6 +23,9 @@ class FocusTimePeriod extends TimePeriod {
       : super(
             name: "Focus",
             time: time,
+            sounds: const SoundModel(
+                end: "assets/sounds/start.m4a",
+                start: "assets/sounds/start.m4a"),
             icon: "assets/icons/brain.svg",
             size: const Size(120, 50));
   @override
@@ -42,6 +48,12 @@ class FocusTimePeriod extends TimePeriod {
             fontWeight: FontWeight.bold,
             color: const Color(0xFFFF4C4C).withOpacity(0.71),
           ),
+          labelMedium: const TextStyle(
+            fontSize: 18,
+            fontFamily: "RobotoFlex",
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF471515),
+          ),
         ),
       );
 }
@@ -51,6 +63,9 @@ class LongBreak extends TimePeriod {
       : super(
             name: "Long break",
             time: time,
+            sounds: const SoundModel(
+                end: "assets/sounds/long_break_end.m4a",
+                start: "assets/sounds/long_break_start.m4a"),
             icon: "assets/icons/coffee.svg",
             size: const Size(180, 50));
   @override
@@ -60,8 +75,8 @@ class LongBreak extends TimePeriod {
       canvasColor: const Color(0xFF153047),
       highlightColor: const Color(0xFF4CACFF).withOpacity(0.62),
       dividerColor: const Color(0xFFD9EEFF),
-      textTheme:  TextTheme(
-        displayLarge:const TextStyle(
+      textTheme: TextTheme(
+        displayLarge: const TextStyle(
             color: Color(0xFF153047), fontFamily: "RobotoFlex", fontSize: 212),
         displayMedium: const TextStyle(
             color: Color(0xFF153047), fontFamily: "RobotoFlex", fontSize: 24),
@@ -85,6 +100,9 @@ class ShortBreak extends TimePeriod {
       : super(
             name: "Short break",
             time: time,
+            sounds: const SoundModel(
+                end: "assets/sounds/short_break_end.m4a",
+                start: "assets/sounds/short_break_start.m4a"),
             icon: "assets/icons/coffee.svg",
             size: const Size(180, 50));
   @override
@@ -94,13 +112,22 @@ class ShortBreak extends TimePeriod {
       canvasColor: const Color(0xFF14401D),
       highlightColor: const Color(0xFF4DDA6E).withOpacity(0.62),
       dividerColor: const Color(0xFFDAFAE0),
-      textTheme: const TextTheme(
-          displayLarge: TextStyle(
-              color: Color(0xFF14401D),
-              fontFamily: "RobotoFlex",
-              fontSize: 212),
-          displayMedium: TextStyle(
-              color: Color(0xFF14401D),
-              fontFamily: "RobotoFlex",
-              fontSize: 24)));
+      textTheme: TextTheme(
+        displayLarge: const TextStyle(
+            color: Color(0xFF14401D), fontFamily: "RobotoFlex", fontSize: 212),
+        displayMedium: const TextStyle(
+            color: Color(0xFF14401D), fontFamily: "RobotoFlex", fontSize: 24),
+        labelMedium: const TextStyle(
+          fontSize: 18,
+          fontFamily: "RobotoFlex",
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF14401D),
+        ),
+        bodyMedium: TextStyle(
+          fontSize: 18,
+          fontFamily: "RobotoFlex",
+          fontWeight: FontWeight.bold,
+          color: const Color(0xFF4DDA6E).withOpacity(0.62),
+        ),
+      ));
 }

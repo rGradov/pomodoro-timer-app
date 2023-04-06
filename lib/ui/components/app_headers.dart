@@ -25,7 +25,7 @@ class HeaderWrapper extends StatelessWidget {
             style: Theme.of(context).textTheme.labelMedium,
           ),
           GestureDetector(
-            onTap:callback,
+            onTap: callback,
             child: child,
           ),
         ],
@@ -35,7 +35,8 @@ class HeaderWrapper extends StatelessWidget {
 }
 
 class HeaderBackWrapper extends StatelessWidget {
-  const HeaderBackWrapper({Key? key, required this.text, this.callback,this.header})
+  const HeaderBackWrapper(
+      {Key? key, required this.text, this.callback, this.header})
       : super(key: key);
   final String text;
   final String? header;
@@ -53,14 +54,12 @@ class HeaderBackWrapper extends StatelessWidget {
             const Icon(
               Icons.navigate_before,
             ),
-           Expanded(child:  Text(
-             text,
-             style: const TextStyle(
-                 fontSize: 24,
-                 fontFamily: "RobotoFlex",
-                 fontWeight: FontWeight.bold,
-                 color: Color(0xFF471515)),
-           ),),
+            Expanded(
+              child: Text(
+                text,
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+            ),
           ],
         ),
       ),

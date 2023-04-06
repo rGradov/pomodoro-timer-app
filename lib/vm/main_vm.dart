@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:pomodoro/service/app_service.dart';
 import 'package:pomodoro/utils/app_structures.dart' as custom;
+import 'package:pomodoro/utils/statistic_delegate.dart';
 
 import '../models/time_period_model.dart';
 
 class MainVm extends ChangeNotifier {
-  MainVm() : _service = AppServiceImpl() {
+  MainVm() : _service = AppServiceImpl(AppMetricaDelegate()) {
     init();
   }
   Future<void> init() async {

@@ -8,37 +8,34 @@ import '../components/buttons/toggle_button.dart';
 class IntervalScreen extends StatelessWidget {
   const IntervalScreen({Key? key, required this.name}) : super(key: key);
   final String name;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFFFFF2F2),
+        backgroundColor: Theme.of(context).primaryColor,
         body: SafeArea(
           child: Column(
             children: [
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               Stack(
                 fit: StackFit.loose,
                 alignment: Alignment.center,
                 children: [
                   Positioned(
                     bottom: 3,
-                    child: Text(name,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontSize: 24,
-                            fontFamily: "RobotoFlex",
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF471515))),
+                    child: Text(
+                      name,
+                      textAlign: TextAlign.center,
+                      style:  Theme.of(context).textTheme.labelMedium
+                    ),
                   ),
                   const HeaderBackWrapper(
                     text: "Settings",
                   ),
                 ],
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               const BlockItem(
                 child: ListTile(
                   title: Text("10 min"),
@@ -57,7 +54,6 @@ class IntervalScreen extends StatelessWidget {
               ),
               const BlockItem(
                 child: ListTile(
-
                   title: Text("10 min"),
                 ),
               ),

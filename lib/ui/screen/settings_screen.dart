@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pomodoro/ui/components/app_headers.dart';
-
 import '../components/buttons/toggle_button.dart';
 
+/// Setting screen
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
@@ -41,7 +40,7 @@ class SettingList extends StatelessWidget {
             callback: () => context.pop(),
             child: Text(
               "done",
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
           ),
           const SizedBox(height: 20),
@@ -73,14 +72,14 @@ class SettingList extends StatelessWidget {
                 height: 1,
               ),
               ToggleBlockButton(
-                text: "dark mode",
+                text: "sound",
                 value: false,
               ),
               SizedBox(
                 height: 1,
               ),
               ToggleBlockButton(
-                text: "dark mode",
+                text: "notification",
                 value: false,
               ),
             ],
@@ -110,12 +109,11 @@ class SettingsBlock extends StatelessWidget {
             child: Text(
               text.toUpperCase(),
               textAlign: TextAlign.start,
-              style: const TextStyle(
-                fontSize: 18,
-                fontFamily: "RobotoFlex",
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF471515),
-              ),
+              style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: "RobotoFlex",
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).canvasColor),
             ),
           ),
         ),
@@ -141,30 +139,46 @@ class SettingsBlockElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: const Color(0xFFFF4C4C).withOpacity(0.15),
-        constraints:
-            const BoxConstraints(minHeight: 40, minWidth: double.infinity),
-        child: FractionallySizedBox(
-          widthFactor: 0.9,
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(text),
-              GestureDetector(
-                onTap: callback,
-                child: Row(
-                  children: [
-                    Text(value),
-                    const Icon(
-                      Icons.navigate_next,
-                    ),
-                  ],
-                ),
+      color: Theme.of(context).dividerColor,
+      constraints:
+          const BoxConstraints(minHeight: 40, minWidth: double.infinity),
+      child: FractionallySizedBox(
+        widthFactor: 0.9,
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                color: Theme.of(context).canvasColor,
+                fontSize: 16,
+                fontFamily: "RobotoFlex",
               ),
-            ],
-          ),
-        ));
+            ),
+            GestureDetector(
+              onTap: callback,
+              child: Row(
+                children: [
+                  Text(
+                    value,
+                    style: TextStyle(
+                      color: Theme.of(context).canvasColor,
+                      fontSize: 14,
+                      fontFamily: "RobotoFlex",
+                    ),
+                  ),
+                  Icon(
+                    Icons.navigate_next,
+                    color: Theme.of(context).canvasColor,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

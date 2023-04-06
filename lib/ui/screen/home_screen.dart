@@ -51,7 +51,7 @@ class Header extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           border: Border.all(
             width: 2,
-            color: const Color(0xFF471515),
+            color: Theme.of(context).canvasColor,
           )),
       child: Center(
         child: SingleChildScrollView(
@@ -60,10 +60,13 @@ class Header extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SvgPicture.asset(current?.icon ?? ""),
+              SvgPicture.asset(
+                current?.icon ?? "",
+                color: Theme.of(context).canvasColor,
+              ),
               Text(
                 current?.name ?? "",
-                style:  Theme.of(context).textTheme.displayMedium,
+                style: Theme.of(context).textTheme.displayMedium,
               )
             ],
           ),
@@ -79,7 +82,6 @@ class TimeWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final current = context.select((MainVm vm) => vm.current);
-
     return Text(
       formatDuration(current?.time),
       textAlign: TextAlign.center,
