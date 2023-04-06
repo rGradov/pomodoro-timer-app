@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import '../components/app_headers.dart';
 import '../components/buttons/toggle_button.dart';
 
+/// this is interval screen which help us to choose on of the time break
+/// in Future the time interval should have option to choose custom time
 class IntervalScreen extends StatelessWidget {
   const IntervalScreen({Key? key, required this.name}) : super(key: key);
   final String name;
@@ -22,11 +24,9 @@ class IntervalScreen extends StatelessWidget {
                 children: [
                   Positioned(
                     bottom: 3,
-                    child: Text(
-                      name,
-                      textAlign: TextAlign.center,
-                      style:  Theme.of(context).textTheme.labelMedium
-                    ),
+                    child: Text(name,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.labelMedium),
                   ),
                   const HeaderBackWrapper(
                     text: "Settings",

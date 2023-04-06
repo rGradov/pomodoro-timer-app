@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
     final current = context.select((MainVm vm) => vm.current);
     return MaterialApp.router(
       routerConfig: router,
-
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: current?.theme ?? ThemeData(),
