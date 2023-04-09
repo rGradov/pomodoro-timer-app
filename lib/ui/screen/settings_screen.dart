@@ -12,16 +12,16 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
           child: SizedBox.expand(
-            child: Column(
-              children: const [
-                SettingList(),
-              ],
-            ),
-          )),
+        child: Column(
+          children: const [
+            SettingList(),
+          ],
+        ),
+      )),
     );
   }
 }
@@ -62,6 +62,12 @@ class SettingList extends StatelessWidget {
                     callback: () => context.push("/settings/interval/Break"),
                     text: "Break",
                     value: "10min"),
+                const SizedBox(height: 1),
+                SettingsBlockElement(
+                    callback: () =>
+                        context.push("/settings/interval/Long Break"),
+                    text: "Long break",
+                    value: "15min"),
               ],
             ),
             const SizedBox(height: 20),
@@ -71,7 +77,7 @@ class SettingList extends StatelessWidget {
                 ToggleBlockButton(
                   text: "dark mode",
                   value: vm.state.darkMode,
-                  callback:  vm.toggleDarkMode,
+                  callback: vm.toggleDarkMode,
                 ),
                 const SizedBox(height: 1),
                 ToggleBlockButton(
