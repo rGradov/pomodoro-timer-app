@@ -1,6 +1,7 @@
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:appmetrica_push_plugin/appmetrica_push_plugin.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pomodoro/models/settings_model.dart';
 
 import '../models/statistic_event_model.dart';
@@ -11,6 +12,8 @@ abstract class StatisticDelegate {
   Future<void> trackSettings({required SettingsModel settings});
 }
 
+@Named("AppMetricaDelegate")
+@Singleton(as: StatisticDelegate)
 class AppMetricaDelegate implements StatisticDelegate {
   @override
   Future<void> init() async {

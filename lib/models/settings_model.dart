@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro/models/settings_entity.dart';
 import 'package:pomodoro/utils/app_utils.dart';
 
 class SettingsModel implements Copyable<SettingsModel> {
@@ -17,7 +18,17 @@ class SettingsModel implements Copyable<SettingsModel> {
   @override
   String toString() =>
       "Settings(darkMode:$darkMode,notification:$notification,sound:$sound)";
+  @override
+  bool operator ==(Object other) {
+    return other is SettingsModel &&
+        darkMode == other.darkMode &&
+        sound == other.sound &&
+        notification == other.notification;
+  }
 
+  @override
+  int get hashCode =>
+      darkMode.hashCode ^ notification.hashCode ^ sound.hashCode;
   @override
   SettingsModel copy() => SettingsModel(
       darkMode: darkMode, notification: notification, sound: sound);

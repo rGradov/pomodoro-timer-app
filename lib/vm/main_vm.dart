@@ -1,13 +1,14 @@
 import 'package:appmetrica_push_plugin/appmetrica_push_plugin.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pomodoro/service/app_service.dart';
 import 'package:pomodoro/utils/app_structures.dart' as custom;
 import 'package:pomodoro/utils/statistic_delegate.dart';
 
 import '../models/time_period_model.dart';
-
+@injectable
 class MainVm extends ChangeNotifier {
-  MainVm() : _service = AppServiceImpl(AppMetricaDelegate()) {
+  MainVm(@Named("AppServiceImpl") this._service) {
     init();
   }
   Future<void> init() async {

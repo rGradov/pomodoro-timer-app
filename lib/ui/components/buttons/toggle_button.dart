@@ -55,7 +55,7 @@ class _ToggleButtonState extends State<ToggleButton> {
               ),
               Switch(
                 value: value,
-                onChanged: (v) => widget.callback(v),
+                onChanged: (v)async =>await widget.callback(v),
                 activeColor: Theme.of(context).highlightColor,
               ),
             ],

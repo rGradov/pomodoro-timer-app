@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pomodoro/ui/components/app_headers.dart';
+import 'package:pomodoro/utils/app_locator.dart';
 import 'package:pomodoro/vm/settings_vm.dart';
 import 'package:provider/provider.dart';
 import '../components/buttons/toggle_button.dart';
@@ -11,16 +12,16 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
           child: SizedBox.expand(
-        child: Column(
-          children: const [
-            SettingList(),
-          ],
-        ),
-      )),
+            child: Column(
+              children: const [
+                SettingList(),
+              ],
+            ),
+          )),
     );
   }
 }
@@ -70,7 +71,7 @@ class SettingList extends StatelessWidget {
                 ToggleBlockButton(
                   text: "dark mode",
                   value: vm.state.darkMode,
-                  callback: vm.toggleDarkMode,
+                  callback:  vm.toggleDarkMode,
                 ),
                 const SizedBox(height: 1),
                 ToggleBlockButton(
