@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pomodoro/models/settings_model.dart';
@@ -11,10 +13,11 @@ abstract class SettingsDataStorage {
   Future<Either<SettingsModel, AppError>> load();
   Future<Either<SettingsModel, AppError>> saveSettings(
       {required SettingsModel settings});
+  FutureOr<void> dispose();
 }
 
 @Named("SettingsDataStorageImpl")
-@Injectable(as: SettingsDataStorage)
+@Singleton(as: SettingsDataStorage,dispose: disposeDataSource)
 class SettingsDataStorageImpl implements SettingsDataStorage {
   SettingsDataStorageImpl._create(this.store) {
     _box = store.box<SettingsEntity>();
@@ -31,6 +34,10 @@ class SettingsDataStorageImpl implements SettingsDataStorage {
       return Left(settings.toModel());
     }
   }
+  @override
+  void dispose(){
+    store.close();
+  }
 
   @override
   Future<Either<SettingsModel, AppError>> saveSettings(
@@ -46,4 +53,7 @@ class SettingsDataStorageImpl implements SettingsDataStorage {
     final store = await openStore(directory: p.join(docsDir.path, "settings"));
     return SettingsDataStorageImpl._create(store);
   }
+}
+FutureOr disposeDataSource(SettingsDataStorage instance){
+  instance.dispose();
 }

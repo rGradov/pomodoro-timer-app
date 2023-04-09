@@ -72,6 +72,19 @@ class SettingList extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             SettingsBlock(
+              text: "Pomodoros",
+              children: [
+                SettingsBlockElement(
+                    callback: () => context.push("/settings/interval/Pomodoros"),
+                    text: "Pomodoros until long break",
+                    value: "3"),
+                const SizedBox(
+                  height: 1,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            SettingsBlock(
               text: "general",
               children: [
                 ToggleBlockButton(
