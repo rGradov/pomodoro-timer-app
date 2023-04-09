@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pomodoro/navigation/app_navigation.dart';
@@ -6,8 +7,11 @@ import 'package:pomodoro/vm/main_vm.dart';
 import 'package:pomodoro/vm/settings_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'firebase_options.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MultiProvider(
       providers: [
