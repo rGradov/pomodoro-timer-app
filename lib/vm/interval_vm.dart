@@ -42,10 +42,13 @@ class IntervalVm extends StateProvider<List<IntervalModel>>
   }
 
   Future<void> select(int id) async {
+    state = state.map((e) => e.copyWith(isSelected: false)).toList();
     final selected = state[id].copyWith(isSelected: !state[id].isSelected);
     state = List.from(state
       ..removeAt(id)
       ..insert(id, selected));
+    debugPrint(state.toString());
+    notifyListeners();
   }
 }
 

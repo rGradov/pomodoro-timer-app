@@ -76,7 +76,7 @@ class _IntervalBody extends StatelessWidget {
               Expanded(
                   child: ListView.separated(
                       itemBuilder: (_, idx) {
-                        return ItemElem(id: idx,interval: items[idx]);
+                        return ItemElem(id: idx, interval: items[idx]);
                       },
                       separatorBuilder: (_, idx) {
                         return const SizedBox(height: 1);
@@ -96,35 +96,37 @@ class ItemElem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        context.read<IntervalVm>().select(id);
+      },
+      child: Container(
         width: double.infinity,
         color: Theme.of(context).dividerColor,
+        padding:  const EdgeInsets.symmetric(horizontal: 10),
         height: 50,
-        child: GestureDetector(
-          onTap: (){
-            context.read<IntervalVm>().select(id);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                interval.value.toString() + (interval.measure ?? ""),
-                style: TextStyle(
-                  color: Theme.of(context).canvasColor,
-                  fontSize: 14,
-                  fontFamily: "RobotoFlex",
-                ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              interval.value.toString() + (interval.measure ?? ""),
+              style: TextStyle(
+                color: Theme.of(context).canvasColor,
+                fontSize: 14,
+                fontFamily: "RobotoFlex",
               ),
-              interval.isSelected
-                  ? Icon(
-                      Icons.done,
-                      color: Theme.of(context).canvasColor,
-                    )
-                  : const SizedBox(),
-            ],
-          ),
-        ));
+            ),
+            interval.isSelected
+                ? Icon(
+                    Icons.done,
+                    color: Theme.of(context).canvasColor,
+                  )
+                : const SizedBox(),
+          ],
+        ),
+      ),
+    );
   }
 }
 
