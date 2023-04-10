@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 import '../../vm/interval_vm.dart';
 import '../components/app_headers.dart';
-import '../components/buttons/toggle_button.dart';
 
 /// this is interval screen which help us to choose on of the time break
 /// in Future the time interval should have option to choose custom time

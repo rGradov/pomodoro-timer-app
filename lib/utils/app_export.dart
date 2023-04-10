@@ -1,0 +1,11 @@
+export 'app_errors.dart';
+export 'app_locator.config.dart';
+export 'app_locator.dart';
+export 'app_utils.dart';
+export 'app_theme.dart';
+export 'package:appmetrica_plugin/appmetrica_plugin.dart';
+export  'package:get_it/get_it.dart';
+export 'package:injectable/injectable.dart';
+export 'package:go_router/go_router.dart';
+export 'package:flutter/material.dart';
+export 'statistic_delegate.dart';

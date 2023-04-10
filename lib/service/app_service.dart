@@ -2,10 +2,8 @@ import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pomodoro/models/statistic_event_model.dart';
 import 'package:pomodoro/models/time_period_model.dart';
-
-import '../utils/app_errors.dart';
+import '../utils/app_export.dart';
 import '../utils/app_structures.dart' as custom;
-import '../utils/statistic_delegate.dart';
 
 typedef Success = custom.LinkedList<TimePeriod>;
 abstract class AppService {

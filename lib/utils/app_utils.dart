@@ -1,14 +1,18 @@
-import 'package:flutter/material.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import '../firebase_options.dart';
+import '../vm/settings_vm.dart';
+import 'app_export.dart';
 import '../models/interval_model.dart';
 
-enum IntervalType {
-  focus,
-  longBreak,
-  shortBreak,
-  pomodoro,
+enum IntervalType { focus, longBreak, shortBreak, pomodoro }
+/// FIXME: create solve issue with async settings
+Future<SettingsVm> initApp()async{
+  WidgetsFlutterBinding.ensureInitialized();
+  configureDependencies();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  final settings = await locator.getAsync<SettingsVm>();
+  return settings;
 }
-
 String formatDuration(Duration? duration) {
   if (duration == null) {
     return "";
@@ -68,8 +72,9 @@ extension IntervalTypes on IntervalType {
         ];
     }
   }
+
   void markActive(VoidCallback callback) {
-    switch (this){
+    switch (this) {
       case IntervalType.focus:
         callback();
         break;

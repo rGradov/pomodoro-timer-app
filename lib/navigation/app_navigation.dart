@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pomodoro/ui/screen/interval_screen.dart';
-
 import '../ui/screen/home_screen.dart';
 import '../ui/screen/settings_screen.dart';
-
+import '../utils/app_export.dart';
+/// FIXME: refactor me
 final router = GoRouter(routes: [
   GoRoute(
     path: "/",
@@ -48,7 +46,9 @@ final router = GoRouter(routes: [
         path: "interval/:name",
         pageBuilder: (ctx, state) {
           return CustomTransitionPage(
-              child:  IntervalScreen(name: state.params["name"]!,),
+              child: IntervalScreen(
+                name: state.params["name"]!,
+              ),
               transitionsBuilder: (ctx, animation, secondaryAnimation, child) {
                 const begin = Offset(1.0, 0.0);
                 const end = Offset.zero;

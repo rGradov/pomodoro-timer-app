@@ -1,7 +1,6 @@
-import 'package:get_it/get_it.dart';
-import 'package:injectable/injectable.dart';
-import 'package:pomodoro/utils/app_locator.config.dart';
+import 'app_export.dart';
 
+/// this is the configuration for injectable and service locator
 final GetIt locator = GetIt.instance;
 @InjectableInit(
   initializerName: 'init',
