@@ -7,6 +7,10 @@ class IntervalModel implements Copyable<IntervalModel> {
   final bool isSelected;
 
   @override
+  // TODO: implement hashCode
+  int get hashCode => value.hashCode ^ measure.hashCode ^ isSelected.hashCode;
+
+  @override
   String toString() =>
       "$runtimeType(value:$value,measure:$measure,isSelected:$isSelected,)";
 
@@ -20,6 +24,15 @@ class IntervalModel implements Copyable<IntervalModel> {
           value: value ?? this.value,
           measure: measure ?? this.measure,
           isSelected: isSelected ?? this.isSelected);
+
+  @override
+  bool operator ==(Object other) {
+    // TODO: implement ==
+    return other is IntervalModel &&
+        other.value == value &&
+        other.measure == measure &&
+        other.isSelected == isSelected;
+  }
 }
 
 class TimeIntervalModel extends IntervalModel {
