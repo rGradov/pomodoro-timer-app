@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pomodoro/ui/components/app_headers.dart';
+import 'package:pomodoro/utils/app_export.dart';
 import 'package:pomodoro/utils/app_locator.dart';
 import 'package:pomodoro/vm/settings_vm.dart';
 import 'package:provider/provider.dart';
@@ -48,34 +49,19 @@ class SettingList extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            SettingsBlock(
-              text: "time intervals",
-              children: [
-                SettingsBlockElement(
-                    callback: () => context.push("/settings/interval/Focus"),
-                    text: "Focus",
-                    value: "10min"),
-                const SizedBox(
-                  height: 1,
-                ),
-                SettingsBlockElement(
-                    callback: () => context.push("/settings/interval/Break"),
-                    text: "Break",
-                    value: "10min"),
-                const SizedBox(height: 1),
-                SettingsBlockElement(
-                    callback: () =>
-                        context.push("/settings/interval/Long Break"),
-                    text: "Long break",
-                    value: "15min"),
-              ],
-            ),
+            const TimeIntervalWrapper(),
             const SizedBox(height: 20),
             SettingsBlock(
               text: "Pomodoros",
               children: [
                 SettingsBlockElement(
-                    callback: () => context.push("/settings/interval/Pomodoros"),
+                    callback: () async {
+                      final result = await context
+                          .push<bool>("/settings/interval/Pomodoros");
+                      if (result != null) {
+                        context.read<SettingsVm>().init();
+                      }
+                    },
                     text: "Pomodoros until long break",
                     value: "3"),
                 const SizedBox(
@@ -202,6 +188,53 @@ class SettingsBlockElement extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class TimeIntervalWrapper extends StatelessWidget {
+  const TimeIntervalWrapper({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final settings = context.select((SettingsVm vm) => vm.state);
+    return SettingsBlock(
+      text: "time intervals",
+      children: [
+        SettingsBlockElement(
+            callback: () async {
+              final result = await context.push("/settings/interval/",extra: IntervalType.focus);
+              if (result != null) {
+                context.read<SettingsVm>().init();
+              }
+            },
+            text: "Focus",
+            value: "${settings.focusTime} min"),
+        const SizedBox(
+          height: 1,
+        ),
+        SettingsBlockElement(
+            callback: () async {
+              final result =
+                  await context.push<bool>("/settings/interval",extra: IntervalType.shortBreak);
+              if (result != null) {
+                context.read<SettingsVm>().init();
+              }
+            },
+            text: "Break",
+            value: "${settings.breakTime} min"),
+        const SizedBox(height: 1),
+        SettingsBlockElement(
+            callback: () async{
+              final result =
+                  await context.push("/settings/interval",extra: IntervalType.longBreak);
+              if (result != null) {
+                context.read<SettingsVm>().init();
+              }
+            },
+            text: "Long break",
+            value: "${settings.longBreakTime} min"),
+      ],
     );
   }
 }

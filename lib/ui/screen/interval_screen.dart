@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pomodoro/models/interval_model.dart';
+import 'package:pomodoro/utils/app_export.dart';
 import 'package:pomodoro/utils/app_locator.dart';
 import 'package:provider/provider.dart';
 
@@ -12,35 +13,21 @@ import '../components/app_headers.dart';
 /// in Future the time interval should have option to choose custom time
 class IntervalScreen extends StatefulWidget {
   final String name;
-  const IntervalScreen({Key? key, required this.name}) : super(key: key);
+  final IntervalType type;
+  const IntervalScreen({Key? key, required this.name, required this.type})
+      : super(key: key);
 
   @override
   State<IntervalScreen> createState() => _IntervalScreenState();
 }
 
 class _IntervalScreenState extends State<IntervalScreen> {
-  IntervalVm? vm;
-  @override
-  void initState() {
-    init();
-    super.initState();
-  }
-
-  Future<void> init() async {
-    vm = await locator.getAsync<IntervalVm>();
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (vm == null) {
-      return const SizedBox();
-    } else {
-      return ChangeNotifierProvider(
-          create: (_) => vm,
-          lazy: false,
-          child: _IntervalBody(name: widget.name));
-    }
+    return ChangeNotifierProvider(
+        create: (_) => IntervalVm(type: widget.type),
+        lazy: false,
+        child: _IntervalBody(name: widget.name));
   }
 }
 
@@ -67,8 +54,9 @@ class _IntervalBody extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.labelMedium),
                   ),
-                  const HeaderBackWrapper(
+                  HeaderBackWrapper(
                     text: "Settings",
+                    callback: () => context.pop(true),
                   ),
                 ],
               ),
@@ -102,7 +90,7 @@ class ItemElem extends StatelessWidget {
       child: Container(
         width: double.infinity,
         color: Theme.of(context).dividerColor,
-        padding:  const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         height: 50,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,9 +123,7 @@ class _HeaderWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        context.pop();
-      },
+      onTap: () => context.pop(true),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,

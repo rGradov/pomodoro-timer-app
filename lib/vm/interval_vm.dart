@@ -1,20 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pomodoro/service/settings_service.dart';
+import 'package:pomodoro/utils/app_export.dart';
 import 'package:pomodoro/utils/app_utils.dart';
 
 import '../models/interval_model.dart';
 
 typedef IntervalCallback = bool Function(IntervalModel);
 
-@injectable
 class IntervalVm extends StateProvider<List<IntervalModel>>
     with FindActiveInterval {
-  IntervalVm({@Named("SettingsServiceImpl") required this.service})
-      : super(IntervalType.focus.getValues());
-  final SettingsService service;
-  final IntervalType _type = IntervalType.focus;
+  IntervalVm({required IntervalType type})
+      : _type = type,
+        super(type.getValues()) {
+    init();
+  }
+  late final SettingsService service;
+  final IntervalType _type;
   Future<void> init() async {
+    service =  await locator.getAsync<SettingsService>(instanceName: "SettingsServiceImpl");
     final settings = await service.load();
     settings.fold((l) async {
       /// FIXME: refactor me
@@ -48,7 +52,35 @@ class IntervalVm extends StateProvider<List<IntervalModel>>
       ..removeAt(id)
       ..insert(id, selected));
     debugPrint(state.toString());
+    _saveSettings();
     notifyListeners();
+  }
+
+  /// FIXME: refactor me
+  Future<void> _saveSettings() async {
+    final settings = await service.load();
+    settings.fold((l) async {
+      if (_type == IntervalType.longBreak) {
+        await service.save(
+            settings: l.copyWith(
+                longBreakTime:
+                    state.firstWhere((element) => element.isSelected).value));
+        return;
+      }
+      if (_type == IntervalType.shortBreak) {
+        await service.save(
+            settings: l.copyWith(
+                breakTime:
+                    state.firstWhere((element) => element.isSelected).value));
+        return;
+      }
+      await service.save(
+          settings: l.copyWith(
+              focusTime:
+                  state.firstWhere((element) => element.isSelected).value));
+    }, (r) {
+      debugPrint(r.text);
+    });
   }
 }
 
