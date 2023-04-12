@@ -72,7 +72,11 @@ class MainVm extends ChangeNotifier {
       if (_current == null) {
         _timer?.cancel();
       } else {
-        final duration = Duration(minutes: _current!.value.time.inMinutes - 1);
+        final duration = _current!.value.time - const Duration(seconds: 1);
+        if (duration == Duration.zero) {
+          _timer!.cancel();
+          moveNext();
+        }
         _current =
             _current!.copyWith(value: _current!.value.copyWith(duration));
         _controller.add(_current!.value.time);
