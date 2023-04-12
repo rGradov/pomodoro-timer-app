@@ -1,8 +1,9 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro/models/sound_model.dart';
+import 'package:pomodoro/utils/app_export.dart';
 
-class TimePeriod {
+class TimePeriod implements Copyable<TimePeriod> {
   const TimePeriod({
     required this.time,
     required this.name,
@@ -17,6 +18,18 @@ class TimePeriod {
   final SoundModel sounds;
   ThemeData get theme => ThemeData();
   ThemeData get darkTheme => ThemeData.dark();
+
+  @override
+  TimePeriod copy() => TimePeriod(
+      time: time, name: name, icon: icon, size: size, sounds: sounds);
+
+  @override
+  TimePeriod copyWith([Duration? time]) => TimePeriod(
+      time: time ?? this.time,
+      name: name,
+      icon: icon,
+      size: size,
+      sounds: sounds);
 }
 
 class FocusTimePeriod extends TimePeriod {
@@ -108,7 +121,7 @@ class LongBreak extends TimePeriod {
   @override
   ThemeData get theme => ThemeData(
       primaryColor: const Color(0xFFF2F9FF),
-      scaffoldBackgroundColor:  const Color(0xFFF2F9FF),
+      scaffoldBackgroundColor: const Color(0xFFF2F9FF),
       cardColor: const Color(0xFFD9EEFF),
       canvasColor: const Color(0xFF153047),
       highlightColor: const Color(0xFF4CACFF).withOpacity(0.62),
@@ -146,8 +159,7 @@ class ShortBreak extends TimePeriod {
   @override
   ThemeData get theme => ThemeData(
       primaryColor: const Color(0xFFF2FFF5),
-      scaffoldBackgroundColor:  const Color(0xFFF2FFF5),
-
+      scaffoldBackgroundColor: const Color(0xFFF2FFF5),
       cardColor: const Color(0xFFDAFAE0),
       canvasColor: const Color(0xFF14401D),
       highlightColor: const Color(0xFF4DDA6E).withOpacity(0.62),

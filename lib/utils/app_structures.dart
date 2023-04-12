@@ -1,7 +1,8 @@
 import 'package:pomodoro/models/settings_model.dart';
+import 'package:pomodoro/utils/app_export.dart';
 
 /// node for linked list
-class Node<T> {
+class Node<T> implements Copyable<Node<T>> {
   Node({required this.value, this.next});
   T value;
   Node<T>? next;
@@ -10,6 +11,13 @@ class Node<T> {
     if (next == null) return "$value";
     return "$value -> ${next.toString()}";
   }
+
+  @override
+  Node<T> copy() => Node(value: value, next: next);
+
+  @override
+  Node<T> copyWith({T? value, Node<T>? next}) =>
+      Node(value: value ?? this.value, next: next ?? this.next);
 }
 
 class LinkedList<E> {
@@ -22,7 +30,6 @@ class LinkedList<E> {
     if (isEmpty) return "Empty";
     return head.toString();
   }
-
 
   E? removeAfter(Node<E> node) {
     final value = node.next?.value;

@@ -81,12 +81,15 @@ class TimeWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final current = context.select((MainVm vm) => vm.current);
-    return Text(
-      formatDuration(current?.time),
-      textAlign: TextAlign.center,
-      style: Theme.of(context).textTheme.displayLarge,
-    );
+    return StreamBuilder<Duration>(
+        stream: context.read<MainVm>().stream,
+        builder: (_, snapshot) {
+          return Text(
+            formatDuration(snapshot.data),
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.displayLarge,
+          );
+        });
   }
 }
 
@@ -102,9 +105,9 @@ class _ButtonsWrapper extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SmallButton(
-              callback: ()async {
+              callback: () async {
                 final value = await context.push<bool>("/settings");
-                if(value == true){
+                if (value == true) {
                   context.read<MainVm>().loadConfig();
                 }
               },
@@ -112,7 +115,9 @@ class _ButtonsWrapper extends StatelessWidget {
               child: SvgPicture.asset("assets/icons/three_dots.svg",
                   color: Theme.of(context).indicatorColor)),
           PlayButton(
-            callback: () {},
+            callback: () {
+              context.read<MainVm>().onPlayButtonClick();
+            },
             color: Theme.of(context).highlightColor,
           ),
           SmallButton(

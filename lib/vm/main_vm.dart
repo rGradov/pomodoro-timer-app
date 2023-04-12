@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pomodoro/models/settings_model.dart';
@@ -12,13 +14,21 @@ class MainVm extends ChangeNotifier {
   MainVm() {
     init();
   }
+
+  Timer? _timer;
   SettingsModel? settings;
+
+  Stream<Duration> get stream => _controller.stream;
+
   Future<void> init() async {
+    _controller = StreamController();
     _service = locator.get(instanceName: "AppServiceImpl");
     _settingsService =
         await locator.getAsync(instanceName: "SettingsServiceImpl");
     await loadConfig();
   }
+
+  late final StreamController<Duration> _controller;
 
   Future<void> loadConfig() async {
     final settingResponse = await _settingsService.load();
@@ -36,9 +46,11 @@ class MainVm extends ChangeNotifier {
     });
     _current = _data?.head;
     notifyListeners();
+    _controller.add(current!.time);
   }
 
   custom.Node<TimePeriod>? _current;
+
   TimePeriod? get current => _current?.value;
 
   late final AppService _service;
@@ -47,6 +59,24 @@ class MainVm extends ChangeNotifier {
 
   void moveNext() {
     _current = _current?.next;
+    _controller.add(_current!.value.time);
     notifyListeners();
+  }
+
+  void onPlayButtonClick() {
+    _run();
+  }
+
+  Future<void> _run() async {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_current == null) {
+        _timer?.cancel();
+      } else {
+        final duration = Duration(minutes: _current!.value.time.inMinutes - 1);
+        _current =
+            _current!.copyWith(value: _current!.value.copyWith(duration));
+        _controller.add(_current!.value.time);
+      }
+    });
   }
 }

@@ -5,14 +5,16 @@ import 'app_export.dart';
 import '../models/interval_model.dart';
 
 enum IntervalType { focus, longBreak, shortBreak, pomodoro }
+
 /// FIXME: create solve issue with async settings
-Future<SettingsVm> initApp()async{
+Future<SettingsVm> initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final settings = await locator.getAsync<SettingsVm>();
   return settings;
 }
+
 String formatDuration(Duration? duration) {
   if (duration == null) {
     return "";
@@ -89,4 +91,14 @@ extension IntervalTypes on IntervalType {
         break;
     }
   }
+}
+
+String intToTimeLeft(int value) {
+  int h, m, s;
+  h = value ~/ 3600;
+  m = ((value - h * 3600)) ~/ 60;
+  s = value - (h * 3600) - (m * 60);
+  String minuteLeft = m.toString().length < 2 ? "0$m" : m.toString();
+  String secondsLeft = s.toString().length < 2 ? "0$s" : s.toString();
+  return "$minuteLeft:$secondsLeft";
 }
