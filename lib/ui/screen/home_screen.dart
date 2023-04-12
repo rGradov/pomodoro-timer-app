@@ -102,7 +102,12 @@ class _ButtonsWrapper extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SmallButton(
-              callback: () => context.push("/settings"),
+              callback: ()async {
+                final value = await context.push<bool>("/settings");
+                if(value == true){
+                  context.read<MainVm>().loadConfig();
+                }
+              },
               color: Theme.of(context).dividerColor,
               child: SvgPicture.asset("assets/icons/three_dots.svg",
                   color: Theme.of(context).indicatorColor)),

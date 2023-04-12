@@ -1,16 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pomodoro/models/settings_model.dart';
 import 'package:pomodoro/service/app_service.dart';
+import 'package:pomodoro/utils/app_export.dart';
 import 'package:pomodoro/utils/app_structures.dart' as custom;
 
 import '../models/time_period_model.dart';
-@injectable
+import '../service/settings_service.dart';
+
 class MainVm extends ChangeNotifier {
-  MainVm(@Named("AppServiceImpl") this._service) {
+  MainVm() {
     init();
   }
+  SettingsModel? settings;
   Future<void> init() async {
-    final response = await _service.loadConfiguration();
+    _service = locator.get(instanceName: "AppServiceImpl");
+    _settingsService =
+        await locator.getAsync(instanceName: "SettingsServiceImpl");
+    await loadConfig();
+  }
+
+  Future<void> loadConfig() async {
+    final settingResponse = await _settingsService.load();
+    settingResponse.fold((l) {
+      settings = l;
+    }, (r) {
+      debugPrint(r.text);
+    });
+    final response = await _service.loadConfiguration(
+        settings: settings ?? SettingsModel.initial());
     response.fold((l) {
       debugPrint(l.text);
     }, (r) {
@@ -23,7 +41,8 @@ class MainVm extends ChangeNotifier {
   custom.Node<TimePeriod>? _current;
   TimePeriod? get current => _current?.value;
 
-  final AppService _service;
+  late final AppService _service;
+  late final SettingsService _settingsService;
   custom.LinkedList<TimePeriod>? _data;
 
   void moveNext() {

@@ -15,7 +15,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<MainVm>(
-          create: (_) => locator.get<MainVm>(),
+          create: (_) => MainVm(),
           lazy: false,
         ),
         ChangeNotifierProvider<SettingsVm>(

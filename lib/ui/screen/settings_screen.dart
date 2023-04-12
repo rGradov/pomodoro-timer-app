@@ -42,7 +42,7 @@ class SettingList extends StatelessWidget {
             const SizedBox(height: 20),
             HeaderWrapper(
               text: "Settings",
-              callback: () => context.pop(),
+              callback: () => context.pop(true),
               child: Text(
                 "done",
                 style: Theme.of(context).textTheme.labelMedium,

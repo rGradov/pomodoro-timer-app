@@ -1,3 +1,5 @@
+import 'package:pomodoro/models/settings_model.dart';
+
 /// node for linked list
 class Node<T> {
   Node({required this.value, this.next});
@@ -20,6 +22,7 @@ class LinkedList<E> {
     if (isEmpty) return "Empty";
     return head.toString();
   }
+
 
   E? removeAfter(Node<E> node) {
     final value = node.next?.value;
