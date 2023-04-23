@@ -22,7 +22,7 @@ class MainVm extends ChangeNotifier {
 
   Future<void> init() async {
     _controller = StreamController();
-    _service = locator.get(instanceName: "AppServiceImpl");
+    _service = await locator.getAsync(instanceName: "AppServiceImpl");
     _settingsService =
         await locator.getAsync(instanceName: "SettingsServiceImpl");
     await loadConfig();

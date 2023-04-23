@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro/models/settings_entity.dart';
 import 'package:pomodoro/utils/app_utils.dart';
 
-class SettingsModel implements Copyable<SettingsModel> {
+class SettingsModel implements Copyable<SettingsModel>, Tracked {
   const SettingsModel({
     required this.darkMode,
     required this.notification,
@@ -66,10 +66,12 @@ class SettingsModel implements Copyable<SettingsModel> {
           longBreakTime: longBreakTime ?? this.longBreakTime,
           breakTime: breakTime ?? this.breakTime,
           focusTime: focusTime ?? this.focusTime);
-}
 
-extension OnSettingsModel on SettingsModel {
-  String toMetrica() =>
-      "darkMode:${_boolToString(darkMode)},notification: ${_boolToString(notification)},sound:${_boolToString(sound)}";
-  String _boolToString(bool value) => value ? "enable" : "disable";
+  @override
+  Map<String, Object> toTrack() => {
+        "darkMode": darkMode,
+        "notification": notification,
+        "sound": sound,
+        "time": DateTime.now(),
+      };
 }

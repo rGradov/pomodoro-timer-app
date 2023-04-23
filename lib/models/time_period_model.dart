@@ -1,9 +1,7 @@
-import 'package:flutter/animation.dart';
-import 'package:flutter/material.dart';
 import 'package:pomodoro/models/sound_model.dart';
 import 'package:pomodoro/utils/app_export.dart';
 
-class TimePeriod implements Copyable<TimePeriod> {
+class TimePeriod implements Copyable<TimePeriod>, Tracked {
   const TimePeriod({
     required this.time,
     required this.name,
@@ -30,6 +28,15 @@ class TimePeriod implements Copyable<TimePeriod> {
       icon: icon,
       size: size,
       sounds: sounds);
+
+  @override
+  Map<String, Object> toTrack() => {
+        "type": runtimeType,
+        "name": name,
+        "sounds": sounds.toString(),
+        "icon": icon,
+        "time": DateTime.now()
+      };
 }
 
 class FocusTimePeriod extends TimePeriod {

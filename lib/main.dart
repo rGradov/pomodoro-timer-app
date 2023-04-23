@@ -1,7 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro/navigation/app_navigation.dart';
-import 'package:pomodoro/utils/app_locator.dart';
 import 'package:pomodoro/utils/app_utils.dart';
 import 'package:pomodoro/vm/main_vm.dart';
 import 'package:pomodoro/vm/settings_vm.dart';

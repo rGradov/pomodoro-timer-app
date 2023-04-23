@@ -1,11 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pomodoro/models/interval_model.dart';
+import 'package:pomodoro/resources/resources.dart';
 import 'package:pomodoro/utils/app_export.dart';
-import 'package:pomodoro/utils/app_locator.dart';
 import 'package:provider/provider.dart';
-
 import '../../vm/interval_vm.dart';
 import '../components/app_headers.dart';
 
@@ -101,7 +98,7 @@ class ItemElem extends StatelessWidget {
               style: TextStyle(
                 color: Theme.of(context).canvasColor,
                 fontSize: 14,
-                fontFamily: "RobotoFlex",
+                fontFamily: FontFamily.robotoFlex,
               ),
             ),
             interval.isSelected
@@ -132,14 +129,14 @@ class _HeaderWrapper extends StatelessWidget {
             scale: 0.7,
             child: RotatedBox(
               quarterTurns: 2,
-              child: SvgPicture.asset("assets/icons/arrow.svg"),
+              child: SvgPicture.asset(AppIcons.arrow),
             ),
           ),
           const Text(
             "Settings",
             style: TextStyle(
                 fontSize: 24,
-                fontFamily: "RobotoFlex",
+                fontFamily: FontFamily.robotoFlex,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF471515)),
           ),

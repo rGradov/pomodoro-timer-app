@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pomodoro/resources/resources.dart';
 import 'package:pomodoro/ui/components/app_headers.dart';
 import 'package:pomodoro/utils/app_export.dart';
 import 'package:pomodoro/utils/app_locator.dart';
@@ -52,7 +53,7 @@ class SettingList extends StatelessWidget {
             const TimeIntervalWrapper(),
             const SizedBox(height: 20),
             SettingsBlock(
-              text: "Pomodoros",
+              text: "Pomodoro",
               children: [
                 SettingsBlockElement(
                     callback: () async {
@@ -62,7 +63,7 @@ class SettingList extends StatelessWidget {
                         context.read<SettingsVm>().init();
                       }
                     },
-                    text: "Pomodoros until long break",
+                    text: "Pomodoro until long break",
                     value: "3"),
                 const SizedBox(
                   height: 1,
@@ -120,7 +121,7 @@ class SettingsBlock extends StatelessWidget {
               textAlign: TextAlign.start,
               style: TextStyle(
                   fontSize: 18,
-                  fontFamily: "RobotoFlex",
+                  fontFamily: FontFamily.robotoFlex,
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).canvasColor),
             ),
@@ -163,7 +164,7 @@ class SettingsBlockElement extends StatelessWidget {
               style: TextStyle(
                 color: Theme.of(context).canvasColor,
                 fontSize: 16,
-                fontFamily: "RobotoFlex",
+                fontFamily: FontFamily.robotoFlex,
               ),
             ),
             GestureDetector(
@@ -175,7 +176,7 @@ class SettingsBlockElement extends StatelessWidget {
                     style: TextStyle(
                       color: Theme.of(context).canvasColor,
                       fontSize: 14,
-                      fontFamily: "RobotoFlex",
+                      fontFamily: FontFamily.robotoFlex,
                     ),
                   ),
                   Icon(

@@ -43,6 +43,10 @@ abstract class Copyable<T> {
   T copyWith();
 }
 
+abstract class Tracked {
+  Map<String, Object> toTrack();
+}
+
 extension IntervalTypes on IntervalType {
   List<IntervalModel> getValues() {
     switch (this) {

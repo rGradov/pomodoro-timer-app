@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pomodoro/resources/resources.dart';
 import 'package:pomodoro/ui/components/buttons/play_button.dart';
 import 'package:pomodoro/ui/components/buttons/small_button.dart';
 import 'package:pomodoro/vm/main_vm.dart';
@@ -41,38 +42,42 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final current = context.select((MainVm vm) => vm.current);
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 100),
-      curve: Curves.easeIn,
-      width: current?.size.width,
-      height: current?.size.height,
-      decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(
-            width: 2,
-            color: Theme.of(context).canvasColor,
-          )),
-      child: Center(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                current?.icon ?? "",
-                color: Theme.of(context).canvasColor,
-              ),
-              Text(
-                current?.name ?? "",
-                style: Theme.of(context).textTheme.displayMedium,
-              )
-            ],
+    if (current == null) {
+      return const SizedBox();
+    } else {
+      return AnimatedContainer(
+        duration: const Duration(milliseconds: 100),
+        curve: Curves.easeIn,
+        width: current.size.width,
+        height: current.size.height,
+        decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              width: 2,
+              color: Theme.of(context).canvasColor,
+            )),
+        child: Center(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  current.icon,
+                  color: Theme.of(context).canvasColor,
+                ),
+                Text(
+                  current.name,
+                  style: Theme.of(context).textTheme.displayMedium,
+                )
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
 
@@ -112,7 +117,7 @@ class _ButtonsWrapper extends StatelessWidget {
                 }
               },
               color: Theme.of(context).dividerColor,
-              child: SvgPicture.asset("assets/icons/three_dots.svg",
+              child: SvgPicture.asset(AppIcons.threeDots,
                   color: Theme.of(context).indicatorColor)),
           PlayButton(
             callback: () {
@@ -124,7 +129,7 @@ class _ButtonsWrapper extends StatelessWidget {
               callback: () => context.read<MainVm>().moveNext(),
               color: Theme.of(context).dividerColor,
               child: SvgPicture.asset(
-                "assets/icons/forward.svg",
+                AppIcons.back,
                 color: Theme.of(context).indicatorColor,
               )),
         ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pomodoro/resources/resources.dart';
 
 class PlayButton extends StatefulWidget {
   const PlayButton({Key? key, required this.callback, required this.color})
@@ -53,9 +54,9 @@ class _SmallButtonState extends State<PlayButton> {
                 duration: const Duration(milliseconds: 400),
                 child: Center(
                   child: value
-                      ? SvgPicture.asset("assets/icons/pause.svg",
+                      ? SvgPicture.asset(AppIcons.pause,
                           color: Theme.of(context).indicatorColor)
-                      : SvgPicture.asset("assets/icons/play.svg",
+                      : SvgPicture.asset(AppIcons.play,
                           color: Theme.of(context).indicatorColor),
                 ),
               ),

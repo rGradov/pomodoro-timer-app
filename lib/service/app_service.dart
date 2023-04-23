@@ -1,9 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:injectable/injectable.dart';
 import 'package:pomodoro/models/settings_model.dart';
-import 'package:pomodoro/models/statistic_event_model.dart';
 import 'package:pomodoro/models/time_period_model.dart';
-import 'package:pomodoro/service/settings_service.dart';
 import '../utils/app_export.dart';
 import '../utils/app_structures.dart' as custom;
 
@@ -17,13 +14,11 @@ abstract class AppService {
 @Named("AppServiceImpl")
 @Injectable(as: AppService)
 class AppServiceImpl implements AppService {
-  AppServiceImpl(@Named("AppMetricaDelegate") this._delegate) {
-    _delegate.init();
-  }
+  AppServiceImpl(@Named("AppMetricaDelegate") this._delegate);
   final StatisticDelegate _delegate;
   @override
-  Future<Either<AppError, Success>> loadConfiguration({required SettingsModel settings}) async {
-
+  Future<Either<AppError, Success>> loadConfiguration(
+      {required SettingsModel settings}) async {
     final list = custom.LinkedList<TimePeriod>()
       ..append(FocusTimePeriod(time: Duration(minutes: settings.focusTime)))
       ..append(ShortBreak(time: Duration(minutes: settings.breakTime)))
@@ -31,9 +26,7 @@ class AppServiceImpl implements AppService {
       ..append(LongBreak(time: Duration(minutes: settings.longBreakTime)));
 
     list.tail?.next = list.head;
-    await _delegate.trackEvent(
-        event:
-            StatisticEvent(time: DateTime.now(), event: "load configuration"));
+    await _delegate.trackEvent(eventName: "load configuration");
     return Either<AppError, Success>.of(list);
   }
 }
