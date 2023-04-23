@@ -53,6 +53,7 @@ dependencies:
   objectbox: ^2.0.0
   objectbox_flutter_libs: any
   path_provider: ^2.0.14
+  envied: ^0.3.0
 
 
 dev_dependencies:
@@ -69,6 +70,7 @@ dev_dependencies:
   injectable_generator: ^2.1.5
   objectbox_generator: any
   spider: ^3.0.0
+  envied_generator: ^0.3.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
