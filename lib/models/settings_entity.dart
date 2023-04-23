@@ -20,7 +20,7 @@ class SettingsEntity {
         notification: settings.notification);
   }
   @Id()
-  int id = 1;
+  int id = 0;
   @Property()
   bool darkMode;
   @Property()
