@@ -15,7 +15,7 @@ use_part_of: true
 # Generates a variable that contains a list of all asset values.
 use_references_list: false
 
-#use_underscores: true
+use_underscores: false
 
 # Generates files with given ignore rules for file.
 ignored_rules:
