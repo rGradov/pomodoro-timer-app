@@ -21,9 +21,9 @@ class HomeScreen extends StatelessWidget {
             value: SystemUiOverlayStyle.light.copyWith(
               statusBarColor: Colors.transparent,
             ),
-            child: SafeArea(
+            child: const SafeArea(
               child: Column(
-                children: const [
+                children: [
                   Header(),
                   Expanded(
                     flex: 2,

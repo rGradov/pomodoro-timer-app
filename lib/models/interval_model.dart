@@ -27,7 +27,6 @@ class IntervalModel implements Copyable<IntervalModel>, Tracked {
 
   @override
   bool operator ==(Object other) {
-    // TODO: implement ==
     return other is IntervalModel &&
         other.value == value &&
         other.measure == measure &&
