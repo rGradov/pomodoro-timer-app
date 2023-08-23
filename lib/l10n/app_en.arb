@@ -2,5 +2,19 @@
   "helloWorld": "Hello World!",
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
-  }
+  },
+  "settings":"Settings",
+  "done": "done",
+  "focusTime": "Focus",
+  "breakTime": "Break",
+  "longBreak": "Long Break",
+  "general": "General",
+  "darkMode":"Dark Mode",
+  "sound": "Sound",
+  "notification": "Notification",
+  "pomodoro": "Pomodoro",
+  "language": "Language"
+
+
+
 }

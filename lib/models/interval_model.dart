@@ -1,8 +1,10 @@
+import 'dart:ui';
+
 import 'package:pomodoro/utils/app_utils.dart';
 
-class IntervalModel implements Copyable<IntervalModel>, Tracked {
+class IntervalModel<T> implements Copyable<IntervalModel>, Tracked {
   IntervalModel({required this.value, this.measure, this.isSelected = false});
-  final int value;
+  final T value;
   final String? measure;
   final bool isSelected;
 
@@ -36,17 +38,24 @@ class IntervalModel implements Copyable<IntervalModel>, Tracked {
   @override
   Map<String, Object> toTrack() => {
         "type": runtimeType,
-        "value": value,
+        "value": value.toString(),
         "measure": measure ?? "",
         "isSelected": isSelected,
         "time": DateTime.now(),
       };
 }
 
-class TimeIntervalModel extends IntervalModel {
+class TimeIntervalModel extends IntervalModel<int> {
   TimeIntervalModel({required int value}) : super(value: value, measure: "min");
 }
 
-class CountIntervalModel extends IntervalModel {
+class CountIntervalModel extends IntervalModel<int> {
   CountIntervalModel({required int value}) : super(value: value);
+}
+
+class LanguageIntervalModel extends IntervalModel<String> {
+  LanguageIntervalModel({required String value})
+      : super(value: value, measure: null);
+  
+  Locale get locale => value =="En"?const Locale("en"):const Locale("ru");
 }

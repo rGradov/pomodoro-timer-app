@@ -7,6 +7,7 @@ import 'package:pomodoro/utils/app_locator.dart';
 import 'package:pomodoro/vm/settings_vm.dart';
 import 'package:provider/provider.dart';
 import '../components/buttons/toggle_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Setting screen
 class SettingsScreen extends StatelessWidget {
@@ -42,10 +43,10 @@ class SettingList extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             HeaderWrapper(
-              text: "Settings",
+              text: AppLocalizations.of(context)!.settings,
               callback: () => context.pop(true),
               child: Text(
-                "done",
+                AppLocalizations.of(context)!.done,
                 style: Theme.of(context).textTheme.labelMedium,
               ),
             ),
@@ -53,7 +54,7 @@ class SettingList extends StatelessWidget {
             const TimeIntervalWrapper(),
             const SizedBox(height: 20),
             SettingsBlock(
-              text: "Pomodoro",
+              text: AppLocalizations.of(context)!.pomodoro,
               children: [
                 SettingsBlockElement(
                     callback: () async {
@@ -72,25 +73,36 @@ class SettingList extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             SettingsBlock(
-              text: "general",
+              text: AppLocalizations.of(context)!.general,
               children: [
                 ToggleBlockButton(
-                  text: "dark mode",
+                  text: AppLocalizations.of(context)!.darkMode,
                   value: vm.state.darkMode,
                   callback: vm.toggleDarkMode,
                 ),
                 const SizedBox(height: 1),
                 ToggleBlockButton(
-                  text: "sound",
+                  text: AppLocalizations.of(context)!.sound,
                   callback: vm.toggleSound,
                   value: vm.state.sound,
                 ),
                 const SizedBox(height: 1),
                 ToggleBlockButton(
-                  text: "notification",
+                  text: AppLocalizations.of(context)!.notification,
                   value: vm.state.notification,
                   callback: vm.toggleNotification,
                 ),
+                const SizedBox(height: 1),
+                SettingsBlockElement(
+                    callback: () async {
+                      final result = await context
+                          .push<bool>("/settings/language",extra:  IntervalType.language);
+                      if (result != null) {
+                        context.read<SettingsVm>().init();
+                      }
+                    },
+                    text: AppLocalizations.of(context)!.language,
+                    value: "EN"),
               ],
             ),
           ],
@@ -204,36 +216,37 @@ class TimeIntervalWrapper extends StatelessWidget {
       children: [
         SettingsBlockElement(
             callback: () async {
-              final result = await context.push("/settings/interval/",extra: IntervalType.focus);
+              final result = await context.push("/settings/interval/",
+                  extra: IntervalType.focus);
               if (result != null) {
                 context.read<SettingsVm>().init();
               }
             },
-            text: "Focus",
+            text: AppLocalizations.of(context)!.focusTime,
             value: "${settings.focusTime} min"),
         const SizedBox(
           height: 1,
         ),
         SettingsBlockElement(
             callback: () async {
-              final result =
-                  await context.push<bool>("/settings/interval",extra: IntervalType.shortBreak);
+              final result = await context.push<bool>("/settings/interval",
+                  extra: IntervalType.shortBreak);
               if (result != null) {
                 context.read<SettingsVm>().init();
               }
             },
-            text: "Break",
+            text: AppLocalizations.of(context)!.breakTime,
             value: "${settings.breakTime} min"),
         const SizedBox(height: 1),
         SettingsBlockElement(
-            callback: () async{
-              final result =
-                  await context.push("/settings/interval",extra: IntervalType.longBreak);
+            callback: () async {
+              final result = await context.push("/settings/interval",
+                  extra: IntervalType.longBreak);
               if (result != null) {
                 context.read<SettingsVm>().init();
               }
             },
-            text: "Long break",
+            text: AppLocalizations.of(context)!.longBreak,
             value: "${settings.longBreakTime} min"),
       ],
     );

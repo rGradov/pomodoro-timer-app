@@ -1,3 +1,17 @@
 {
-  "helloWorld": "привет мир!"
+  "helloWorld": "привет мир!",
+  "settings":"Настройки",
+  "done": "готово",
+  "focusTime": "Фокус",
+  "breakTime": "Перерыв",
+  "longBreak": "Продолжительный Перерыв",
+  "general": "Основные",
+  "darkMode":"Ночная тема",
+  "sound": "Звуки",
+  "notification": "Уведомления",
+  "pomodoro": "Помодоро",
+  "language": "Язык"
+
+
+
 }

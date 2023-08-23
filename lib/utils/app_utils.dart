@@ -4,7 +4,7 @@ import '../vm/settings_vm.dart';
 import 'app_export.dart';
 import '../models/interval_model.dart';
 
-enum IntervalType { focus, longBreak, shortBreak, pomodoro }
+enum IntervalType { focus, longBreak, shortBreak, pomodoro, language }
 
 /// FIXME: create solve issue with async settings
 Future<SettingsVm> initApp() async {
@@ -76,6 +76,11 @@ extension IntervalTypes on IntervalType {
           CountIntervalModel(value: 4),
           CountIntervalModel(value: 5),
         ];
+      case IntervalType.language:
+        return [
+          LanguageIntervalModel(value: "EN"),
+          LanguageIntervalModel(value: "RU"),
+        ];
     }
   }
 
@@ -91,6 +96,9 @@ extension IntervalTypes on IntervalType {
         // TODO: Handle this case.
         break;
       case IntervalType.pomodoro:
+        // TODO: Handle this case.
+        break;
+      case IntervalType.language:
         // TODO: Handle this case.
         break;
     }

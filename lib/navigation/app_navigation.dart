@@ -64,6 +64,27 @@ final router = GoRouter(routes: [
               });
         },
       ),
+      GoRoute(
+        path: "language",
+        pageBuilder: (ctx, state) {
+          return CustomTransitionPage(
+              child: IntervalScreen(
+                name: (state.extra as IntervalType).name,
+                type: state.extra as IntervalType,
+              ),
+              transitionsBuilder: (ctx, animation, secondaryAnimation, child) {
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                var curve = Curves.ease;
+                var curveTween = CurveTween(curve: curve);
+                var tween = Tween(begin: begin, end: end).chain(curveTween);
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              });
+        },
+      ),
     ],
   ),
 ]);

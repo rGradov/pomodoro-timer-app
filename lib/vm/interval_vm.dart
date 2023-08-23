@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
-import 'package:injectable/injectable.dart';
 import 'package:pomodoro/service/settings_service.dart';
 import 'package:pomodoro/utils/app_export.dart';
 import 'package:pomodoro/utils/app_utils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../models/interval_model.dart';
 
 typedef IntervalCallback = bool Function(IntervalModel);
 
+/// FIXME: refactor me
 class IntervalVm extends StateProvider<List<IntervalModel>>
     with FindActiveInterval {
   IntervalVm({required IntervalType type})
@@ -18,7 +19,8 @@ class IntervalVm extends StateProvider<List<IntervalModel>>
   late final SettingsService service;
   final IntervalType _type;
   Future<void> init() async {
-    service =  await locator.getAsync<SettingsService>(instanceName: "SettingsServiceImpl");
+    service = await locator.getAsync<SettingsService>(
+        instanceName: "SettingsServiceImpl");
     final settings = await service.load();
     settings.fold((l) async {
       /// FIXME: refactor me
@@ -39,6 +41,12 @@ class IntervalVm extends StateProvider<List<IntervalModel>>
           state = findActive(
               type: _type, callback: (elem) => elem.value == l.focusTime);
           break;
+        case IntervalType.language:
+          state = [
+            LanguageIntervalModel(value: "EN"),
+            LanguageIntervalModel(value: "Ru"),
+          ];
+          break;
       }
     }, (r) {
       debugPrint(r.text);
@@ -52,7 +60,10 @@ class IntervalVm extends StateProvider<List<IntervalModel>>
       ..removeAt(id)
       ..insert(id, selected));
     debugPrint(state.toString());
-    _saveSettings();
+    if (_type == IntervalType.language) {
+      await AppLocalizations.delegate.load(Locale("ru"));
+    }
+    // _saveSettings();
     notifyListeners();
   }
 
