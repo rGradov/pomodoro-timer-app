@@ -54,6 +54,8 @@ dependencies:
   objectbox_flutter_libs: any
   path_provider: ^2.0.14
   envied: ^0.3.0
+  elementary: ^3.0.0
+  heroicons: ^0.9.0
 
 
 dev_dependencies:

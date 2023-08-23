@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:heroicons/heroicons.dart';
 import 'package:pomodoro/resources/resources.dart';
 
 class PlayButton extends StatefulWidget {
@@ -52,13 +53,32 @@ class _SmallButtonState extends State<PlayButton> {
                 switchInCurve: Curves.easeIn,
                 switchOutCurve: Curves.easeOut,
                 duration: const Duration(milliseconds: 400),
-                child: Center(
-                  child: value
-                      ? SvgPicture.asset(AppIcons.pause,
-                          color: Theme.of(context).indicatorColor)
-                      : SvgPicture.asset(AppIcons.play,
-                          color: Theme.of(context).indicatorColor),
-                ),
+                child: Center(child: Builder(
+                  builder: (context) {
+                    if (value) {
+                      return SizedBox(
+                          key: const ValueKey(1),
+                          child: HeroIcon(
+                            HeroIcons.pause,
+                            size: 50,
+                            style: HeroIconStyle
+                                .solid, // Outlined icons are used by default.
+                            color: Theme.of(context).indicatorColor,
+                          ));
+                    } else {
+                      return SizedBox(
+                        key: const ValueKey(2),
+                        child: HeroIcon(
+                          HeroIcons.play,
+                          size: 50,
+                          style: HeroIconStyle
+                              .solid, // Outlined icons are used by default.
+                          color: Theme.of(context).indicatorColor,
+                        ),
+                      );
+                    }
+                  },
+                )),
               ),
             ),
           );

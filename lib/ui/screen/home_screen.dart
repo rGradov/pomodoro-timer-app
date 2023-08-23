@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:heroicons/heroicons.dart';
 import 'package:pomodoro/resources/resources.dart';
 import 'package:pomodoro/ui/components/buttons/play_button.dart';
 import 'package:pomodoro/ui/components/buttons/small_button.dart';
@@ -117,8 +118,12 @@ class _ButtonsWrapper extends StatelessWidget {
                 }
               },
               color: Theme.of(context).dividerColor,
-              child: SvgPicture.asset(AppIcons.threeDots,
-                  color: Theme.of(context).indicatorColor)),
+              child: HeroIcon(
+                HeroIcons.adjustmentsHorizontal,
+                size: 35,
+                style: HeroIconStyle.solid, // Outlined icons are used by default.
+                color: Theme.of(context).indicatorColor,
+              ),),
           PlayButton(
             callback: () {
               context.read<MainVm>().onPlayButtonClick();
@@ -126,12 +131,15 @@ class _ButtonsWrapper extends StatelessWidget {
             color: Theme.of(context).highlightColor,
           ),
           SmallButton(
-              callback: () => context.read<MainVm>().moveNext(),
-              color: Theme.of(context).dividerColor,
-              child: SvgPicture.asset(
-                AppIcons.back,
-                color: Theme.of(context).indicatorColor,
-              )),
+            callback: () => context.read<MainVm>().moveNext(),
+            color: Theme.of(context).dividerColor,
+            child: HeroIcon(
+              HeroIcons.forward,
+              size: 30,
+              style: HeroIconStyle.solid, // Outlined icons are used by default.
+              color: Theme.of(context).indicatorColor,
+            ),
+          ),
         ],
       ),
     );
