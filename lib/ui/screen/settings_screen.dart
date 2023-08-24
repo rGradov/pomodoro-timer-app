@@ -10,8 +10,8 @@ import '../components/buttons/toggle_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Setting screen
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+class SettingssScreen extends StatelessWidget {
+  const SettingssScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

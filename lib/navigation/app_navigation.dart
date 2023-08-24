@@ -1,3 +1,4 @@
+import 'package:pomodoro/src/settings/app_settings.dart';
 import 'package:pomodoro/ui/screen/interval_screen.dart';
 import '../src/home/app_home.dart';
 import '../ui/screen/settings_screen.dart';

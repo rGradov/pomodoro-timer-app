@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:pomodoro/src/home/app_home.dart';
 import '../firebase_options.dart';
 import '../src/main/app_main.dart';
+import '../src/settings/app_settings.dart';
 import '../vm/settings_vm.dart';
 import 'app_export.dart';
 import '../models/interval_model.dart';
@@ -10,6 +11,7 @@ enum IntervalType { focus, longBreak, shortBreak, pomodoro, language }
 
 late final HomeModel home;
 late final ElementaryMainModel mainModel;
+late final ElementarySettingsModel settingsModel;
 
 /// FIXME: create solve issue with async settings
 Future<SettingsVm> initApp() async {
@@ -19,6 +21,7 @@ Future<SettingsVm> initApp() async {
   final settings = await locator.getAsync<SettingsVm>();
   home = await locator.getAsync<HomeModel>();
   mainModel = await locator.getAsync<ElementaryMainModel>();
+  settingsModel = await locator.getAsync<ElementarySettingsModel>();
   return settings;
 }
 

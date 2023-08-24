@@ -8,7 +8,6 @@ class AppMain extends ElementaryWidget<MainWm> {
     return ValueListenableBuilder<SettingsModel>(
         valueListenable: wm.settings,
         builder: (_, value, __) {
-          debugPrint("app main ${value.toString()}");
           return MaterialApp.router(
             key: navigatorKey,
             routerConfig: router,
