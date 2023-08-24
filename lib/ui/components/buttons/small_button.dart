@@ -15,12 +15,22 @@ class SmallButton extends StatefulWidget {
   State<SmallButton> createState() => _SmallButtonState();
 }
 
-class _SmallButtonState extends State<SmallButton> {
+class _SmallButtonState extends State<SmallButton>
+    with SingleTickerProviderStateMixin {
   late Color _color;
-
+  late final AnimationController _controller;
+  double _scale = 0;
   @override
   void initState() {
     _color = widget.color;
+    _controller = AnimationController(
+        vsync: this,
+        duration: const Duration(milliseconds: 300),
+        lowerBound: .0,
+        upperBound: .15)
+      ..addListener(() {
+        setState(() {});
+      });
     super.initState();
   }
 
@@ -33,17 +43,37 @@ class _SmallButtonState extends State<SmallButton> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  void tapDown(TapDownDetails _) {
+    _controller.forward();
+  }
+
+  void tapUp(TapUpDetails _) {
+    _controller.reverse();
+    widget.callback();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 400),
-      width: 80,
-      height: 80,
-      decoration:  BoxDecoration(
-        color: _color,
-          borderRadius: const BorderRadius.all(Radius.circular(24))),
-      child: GestureDetector(
-        onTap: widget.callback,
-        child: Center(child: widget.child),
+    _scale = 1 - _controller.value;
+    return Transform.scale(
+      scale: _scale,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 400),
+        width: 80,
+        height: 80,
+        decoration: BoxDecoration(
+            color: _color,
+            borderRadius: const BorderRadius.all(Radius.circular(24))),
+        child: GestureDetector(
+          onTapDown: tapDown,
+          onTapUp: tapUp,
+          child: Center(child: widget.child),
+        ),
       ),
     );
   }
