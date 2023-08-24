@@ -1,11 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pomodoro/models/settings_model.dart';
 import 'package:pomodoro/service/settings_service.dart';
-import 'package:pomodoro/utils/statistic_delegate.dart';
-
-import '../main.dart';
 import '../utils/app_utils.dart';
 
 typedef ToggleCallback = Function(bool value);
@@ -16,13 +15,12 @@ class SettingsVm extends StateProvider<SettingsModel> {
       : super(SettingsModel.initial()) {
     init();
   }
+  StreamSubscription<SettingsModel>? _subscription;
   final SettingsService _service;
   Future<void> init() async {
-    final settings = await _service.load();
-    settings.fold((l) {
-      state = l;
-    }, (r) {
-      debugPrint(r.text);
+    _service.subject.listen((value) {
+      debugPrint("settings server:$value");
+      state = value;
     });
   }
 
@@ -54,5 +52,11 @@ class SettingsVm extends StateProvider<SettingsModel> {
     }, (r) {
       debugPrint(r.text);
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _subscription?.cancel();
   }
 }

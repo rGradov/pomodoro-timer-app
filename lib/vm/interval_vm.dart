@@ -19,38 +19,38 @@ class IntervalVm extends StateProvider<List<IntervalModel>>
   late final SettingsService service;
   final IntervalType _type;
   Future<void> init() async {
-    service = await locator.getAsync<SettingsService>(
-        instanceName: "SettingsServiceImpl");
-    final settings = await service.load();
-    settings.fold((l) async {
-      /// FIXME: refactor me
-      switch (_type) {
-        case IntervalType.focus:
-          state = findActive(
-              type: _type, callback: (elem) => elem.value == l.focusTime);
-          break;
-        case IntervalType.longBreak:
-          state = findActive(
-              type: _type, callback: (elem) => elem.value == l.longBreakTime);
-          break;
-        case IntervalType.shortBreak:
-          state = findActive(
-              type: _type, callback: (elem) => elem.value == l.breakTime);
-          break;
-        case IntervalType.pomodoro:
-          state = findActive(
-              type: _type, callback: (elem) => elem.value == l.focusTime);
-          break;
-        case IntervalType.language:
-          state = [
-            LanguageIntervalModel(value: "EN"),
-            LanguageIntervalModel(value: "Ru"),
-          ];
-          break;
-      }
-    }, (r) {
-      debugPrint(r.text);
-    });
+    // service = await locator.getAsync<SettingsService>(
+    //     instanceName: "SettingsServiceImpl");
+    // final settings = await service.load();
+    // settings.fold((l) async {
+    //   /// FIXME: refactor me
+    //   switch (_type) {
+    //     case IntervalType.focus:
+    //       state = findActive(
+    //           type: _type, callback: (elem) => elem.value == l.focusTime);
+    //       break;
+    //     case IntervalType.longBreak:
+    //       state = findActive(
+    //           type: _type, callback: (elem) => elem.value == l.longBreakTime);
+    //       break;
+    //     case IntervalType.shortBreak:
+    //       state = findActive(
+    //           type: _type, callback: (elem) => elem.value == l.breakTime);
+    //       break;
+    //     case IntervalType.pomodoro:
+    //       state = findActive(
+    //           type: _type, callback: (elem) => elem.value == l.focusTime);
+    //       break;
+    //     case IntervalType.language:
+    //       state = [
+    //         LanguageIntervalModel(value: "EN"),
+    //         LanguageIntervalModel(value: "Ru"),
+    //       ];
+    //       break;
+    //   }
+    // }, (r) {
+    //   debugPrint(r.text);
+    // });
   }
 
   Future<void> select(int id) async {
@@ -67,32 +67,32 @@ class IntervalVm extends StateProvider<List<IntervalModel>>
     notifyListeners();
   }
 
-  /// FIXME: refactor me
-  Future<void> _saveSettings() async {
-    final settings = await service.load();
-    settings.fold((l) async {
-      if (_type == IntervalType.longBreak) {
-        await service.save(
-            settings: l.copyWith(
-                longBreakTime:
-                    state.firstWhere((element) => element.isSelected).value));
-        return;
-      }
-      if (_type == IntervalType.shortBreak) {
-        await service.save(
-            settings: l.copyWith(
-                breakTime:
-                    state.firstWhere((element) => element.isSelected).value));
-        return;
-      }
-      await service.save(
-          settings: l.copyWith(
-              focusTime:
-                  state.firstWhere((element) => element.isSelected).value));
-    }, (r) {
-      debugPrint(r.text);
-    });
-  }
+  // /// FIXME: refactor me
+  // Future<void> _saveSettings() async {
+  //   final settings = await service.load();
+  //   settings.fold((l) async {
+  //     if (_type == IntervalType.longBreak) {
+  //       await service.save(
+  //           settings: l.copyWith(
+  //               longBreakTime:
+  //                   state.firstWhere((element) => element.isSelected).value));
+  //       return;
+  //     }
+  //     if (_type == IntervalType.shortBreak) {
+  //       await service.save(
+  //           settings: l.copyWith(
+  //               breakTime:
+  //                   state.firstWhere((element) => element.isSelected).value));
+  //       return;
+  //     }
+  //     await service.save(
+  //         settings: l.copyWith(
+  //             focusTime:
+  //                 state.firstWhere((element) => element.isSelected).value));
+  //   }, (r) {
+  //     debugPrint(r.text);
+  //   });
+  // }
 }
 
 mixin FindActiveInterval {

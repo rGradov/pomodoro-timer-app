@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro/navigation/app_navigation.dart';
+import 'package:pomodoro/src/main/app_main.dart';
 import 'package:pomodoro/utils/app_utils.dart';
 import 'package:pomodoro/vm/main_vm.dart';
 import 'package:pomodoro/vm/settings_vm.dart';
@@ -18,15 +19,12 @@ void main() async {
         ),
         ChangeNotifierProvider<SettingsVm>(
           create: (_) => settings,
-          lazy: false,
         ),
       ],
-      child: const MyApp(),
+      child: const AppMain(),
     ),
   );
-}
-
-class MyApp extends StatelessWidget {
+}class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
@@ -44,3 +42,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+

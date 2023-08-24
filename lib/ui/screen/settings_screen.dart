@@ -17,10 +17,10 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: SafeArea(
+      body: const SafeArea(
           child: SizedBox.expand(
         child: Column(
-          children: const [
+          children: [
             SettingList(),
           ],
         ),

@@ -18,6 +18,15 @@ class HomeWm extends WidgetModel<HomeScreen, HomeModel> {
   TextStyle? get mediumStyle => Theme.of(context).textTheme.displayMedium;
 
   void onNextButtonTap() => model.next();
+  @override
+  void dispose() {
+    super.dispose();
+    model.dispose();
+  }
+
+  void onSettingsButtonTap() async {
+    await context.push<bool>("/settings");
+  }
 }
 
 HomeWm createHomeWm(BuildContext _) => HomeWm(home);

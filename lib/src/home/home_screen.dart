@@ -67,12 +67,7 @@ class HomeScreen extends ElementaryWidget<HomeWm> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SmallButton(
-                                  callback: () async {
-                                    // final value = await context.push<bool>("/settings");
-                                    // if (value == true) {
-                                    //   context.read<MainVm>().loadConfig();
-                                    // }
-                                  },
+                                  callback: wm.onSettingsButtonTap,
                                   color: wm.dividerColor,
                                   child: HeroIcon(
                                     HeroIcons.adjustmentsHorizontal,

@@ -31,22 +31,6 @@ class MainVm extends ChangeNotifier {
   late final StreamController<Duration> _controller;
 
   Future<void> loadConfig() async {
-    final settingResponse = await _settingsService.load();
-    settingResponse.fold((l) {
-      settings = l;
-    }, (r) {
-      debugPrint(r.text);
-    });
-    final response = await _service.loadConfiguration(
-        settings: settings ?? SettingsModel.initial());
-    response.fold((l) {
-      debugPrint(l.text);
-    }, (r) {
-      _data = r;
-    });
-    _current = _data?.head;
-    notifyListeners();
-    _controller.add(current!.time);
   }
 
   custom.Node<TimePeriod>? _current;
