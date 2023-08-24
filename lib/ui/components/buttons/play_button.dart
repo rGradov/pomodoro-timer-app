@@ -4,10 +4,11 @@ import 'package:heroicons/heroicons.dart';
 import 'package:pomodoro/resources/resources.dart';
 
 class PlayButton extends StatefulWidget {
-  const PlayButton({Key? key, required this.callback, required this.color})
+  const PlayButton({Key? key, required this.callback, required this.color, required this.indicatorColor})
       : super(key: key);
   final VoidCallback callback;
   final Color color;
+  final Color indicatorColor;
 
   @override
   State<PlayButton> createState() => _SmallButtonState();
@@ -15,19 +16,22 @@ class PlayButton extends StatefulWidget {
 
 class _SmallButtonState extends State<PlayButton> {
   late Color _color;
+  late Color _indicator;
   late final ValueNotifier<bool> _isPlay;
 
   @override
   void initState() {
     _color = widget.color;
+    _indicator = widget.indicatorColor;
     _isPlay = ValueNotifier(false);
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant PlayButton oldWidget) {
-    if (oldWidget.color != widget.color) {
+    if (oldWidget.color != widget.color || oldWidget.indicatorColor != widget.indicatorColor) {
       _color = widget.color;
+      _indicator = widget.indicatorColor;
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -63,7 +67,7 @@ class _SmallButtonState extends State<PlayButton> {
                             size: 50,
                             style: HeroIconStyle
                                 .solid, // Outlined icons are used by default.
-                            color: Theme.of(context).indicatorColor,
+                            color: _indicator,
                           ));
                     } else {
                       return SizedBox(
@@ -73,7 +77,7 @@ class _SmallButtonState extends State<PlayButton> {
                           size: 50,
                           style: HeroIconStyle
                               .solid, // Outlined icons are used by default.
-                          color: Theme.of(context).indicatorColor,
+                          color: _indicator,
                         ),
                       );
                     }

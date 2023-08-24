@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:heroicons/heroicons.dart';
-import 'package:pomodoro/resources/resources.dart';
 import 'package:pomodoro/ui/components/buttons/play_button.dart';
 import 'package:pomodoro/ui/components/buttons/small_button.dart';
 import 'package:pomodoro/vm/main_vm.dart';
@@ -11,29 +10,30 @@ import 'package:provider/provider.dart';
 
 import '../../utils/app_utils.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomesScreen extends StatelessWidget {
+  const HomesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-            value: SystemUiOverlayStyle.light.copyWith(
-              statusBarColor: Colors.transparent,
-            ),
-            child: const SafeArea(
-              child: Column(
-                children: [
-                  Header(),
-                  Expanded(
-                    flex: 2,
-                    child: TimeWrapper(),
-                  ),
-                  Expanded(child: _ButtonsWrapper()),
-                ],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light.copyWith(
+          statusBarColor: Colors.transparent,
+        ),
+        child: const SafeArea(
+          child: Column(
+            children: [
+              Header(),
+              Expanded(
+                flex: 2,
+                child: TimeWrapper(),
               ),
-            )));
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -99,49 +99,3 @@ class TimeWrapper extends StatelessWidget {
   }
 }
 
-class _ButtonsWrapper extends StatelessWidget {
-  const _ButtonsWrapper({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FractionallySizedBox(
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SmallButton(
-              callback: () async {
-                final value = await context.push<bool>("/settings");
-                if (value == true) {
-                  context.read<MainVm>().loadConfig();
-                }
-              },
-              color: Theme.of(context).dividerColor,
-              child: HeroIcon(
-                HeroIcons.adjustmentsHorizontal,
-                size: 35,
-                style: HeroIconStyle.solid, // Outlined icons are used by default.
-                color: Theme.of(context).indicatorColor,
-              ),),
-          PlayButton(
-            callback: () {
-              context.read<MainVm>().onPlayButtonClick();
-            },
-            color: Theme.of(context).highlightColor,
-          ),
-          SmallButton(
-            callback: () => context.read<MainVm>().moveNext(),
-            color: Theme.of(context).dividerColor,
-            child: HeroIcon(
-              HeroIcons.forward,
-              size: 30,
-              style: HeroIconStyle.solid, // Outlined icons are used by default.
-              color: Theme.of(context).indicatorColor,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

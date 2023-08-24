@@ -1,5 +1,5 @@
 import 'package:pomodoro/ui/screen/interval_screen.dart';
-import '../ui/screen/home_screen.dart';
+import '../src/home/app_home.dart';
 import '../ui/screen/settings_screen.dart';
 import '../utils/app_export.dart';
 

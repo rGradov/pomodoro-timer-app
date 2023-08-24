@@ -1,17 +1,19 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pomodoro/src/home/app_home.dart';
 import '../firebase_options.dart';
 import '../vm/settings_vm.dart';
 import 'app_export.dart';
 import '../models/interval_model.dart';
 
 enum IntervalType { focus, longBreak, shortBreak, pomodoro, language }
-
+late final HomeModel home;
 /// FIXME: create solve issue with async settings
 Future<SettingsVm> initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final settings = await locator.getAsync<SettingsVm>();
+  home = await locator.getAsync<HomeModel>();
   return settings;
 }
 
